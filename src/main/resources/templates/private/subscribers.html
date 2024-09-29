@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{private/main::layout(~{::bodyContent})}">
+<body>
+<!-- Body Content Wrapper -->
+<div class="ms-content-wrapper" th:fragment="bodyContent">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ms-panel-header d-flex justify-content-between">
+                <h2 class="pt-2">Manage Subscribers</h2>
+                <a href="">
+                    <button class="btn btn-primary">New Subscriber</button>
+                </a>
+            </div>
+            <div class="ms-panel-body">
+                <div class="table-responsive">
+                    <table id="data-table-1" class="table table-hover w-100"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>

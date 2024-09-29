@@ -1,0 +1,285 @@
+<!-- Setting Panel -->
+<div class="ms-toggler ms-settings-toggle ms-d-block-lg">
+    <i class="flaticon-paint"></i>
+</div>
+
+<div class="ms-settings-panel ms-d-block-lg">
+    <div class="row">
+
+        <div class="col-xl-4 col-md-4">
+            <h4 class="section-title">Customize</h4>
+            <div>
+                <label class="ms-switch">
+                    <input type="checkbox" id="dark-mode">
+                    <span class="ms-switch-slider round"></span>
+                </label>
+                <span>Light Mode</span>
+            </div>
+            <div>
+                <label class="ms-switch">
+                    <input type="checkbox" id="remove-quickbar">
+                    <span class="ms-switch-slider round"></span>
+                </label>
+                <span> Remove Quickbar </span>
+            </div>
+        </div>
+        <div class="col-xl-4 col-md-4">
+            <h4 class="section-title">Keyboard Shortcuts</h4>
+            <p class="ms-directions mb-0"><code>Esc</code> Close Quick Bar</p>
+            <p class="ms-directions mb-0"><code>Alt + (1 -> 6)</code> Open Quick Bar Tab</p>
+            <p class="ms-directions mb-0"><code>Alt + Q</code> Enable Quick Bar Configure Mode</p>
+
+        </div>
+    </div>
+</div>
+
+<!-- Preloader -->
+<div id="preloader-wrap">
+    <div class="spinner spinner-8">
+        <div class="ms-circle1 ms-child"></div>
+        <div class="ms-circle2 ms-child"></div>
+        <div class="ms-circle3 ms-child"></div>
+        <div class="ms-circle4 ms-child"></div>
+        <div class="ms-circle5 ms-child"></div>
+        <div class="ms-circle6 ms-child"></div>
+        <div class="ms-circle7 ms-child"></div>
+        <div class="ms-circle8 ms-child"></div>
+        <div class="ms-circle9 ms-child"></div>
+        <div class="ms-circle10 ms-child"></div>
+        <div class="ms-circle11 ms-child"></div>
+        <div class="ms-circle12 ms-child"></div>
+    </div>
+</div>
+
+<!-- Sidebar Navigation Left -->
+<aside id="ms-side-nav" class="side-nav fixed ms-aside-scrollable ms-aside-left">
+
+    <!-- Logo -->
+    <div class="logo-sn ms-d-block-lg">
+        <a class="pl-0 ml-0 text-center" th:href="@{/api/v1/dashboard}">
+            <img th:src="@{/private/assets/img/logo.svg}" alt="logo"> </a>
+    </div>
+
+    <!-- Navigation -->
+    <ul class="accordion ms-main-aside fs-14" id="side-nav-accordion">
+        <!-- Dashboard -->
+        <li class="menu-item">
+            <a th:href="@{/api/v1/dashboard}">
+                <span><i class="material-icons fs-16">dashboard</i>Dashboard</span>
+            </a>
+        </li>
+        <!-- /Dashboard -->
+        <li class="menu-item">
+            <a href="#" class="has-chevron" data-toggle="collapse" data-target="#category" aria-expanded="false"
+               aria-controls="team">
+                <span><i class="material-icons fs-16">beach_access</i>Category</span>
+            </a>
+            <ul id="category" class="collapse" aria-labelledby="category" data-parent="#side-nav-accordion">
+                <li><a th:href="@{/api/v1/category}">All Category</a></li>
+                <li><a th:href="@{/api/v1/category/new}">Add Category</a></li>
+                <li><a th:href="@{/api/v1/sub-category}">All Sub-Category</a></li>
+                <li><a th:href="@{/api/v1/sub-category/new}">Add Sub-Category</a></li>
+            </ul>
+        </li>
+        <!-- company -->
+        <li class="menu-item">
+            <a th:href="@{/api/v1/services}" class="has-chevron" data-toggle="collapse" data-target="#services" aria-expanded="false"
+               aria-controls="company">
+                <span><i class="material-icons fs-16">ac_unit</i>Services </span>
+            </a>
+            <ul id="services" class="collapse" aria-labelledby="services" data-parent="#side-nav-accordion">
+                <li><a th:href="@{/api/v1/service}">All Services</a></li>
+                <li><a th:href="@{/api/v1/service/new}">Add Service</a></li>
+                <li><a th:href="@{/api/v1/service/details}">All Service Details</a></li>
+                <li><a th:href="@{/api/v1/service/details/new}">Add Service Detail</a></li>
+            </ul>
+        </li>
+        <!-- /company -->
+
+        <!-- Team -->
+        <li class="menu-item">
+            <a href="#" class="has-chevron" data-toggle="collapse" data-target="#enquiry" aria-expanded="false"
+               aria-controls="team">
+                <span><i class="material-icons fs-16">headphones</i>Enquiry </span>
+            </a>
+            <ul id="enquiry" class="collapse" aria-labelledby="enquiry" data-parent="#side-nav-accordion">
+                <li><a th:href="@{/api/v1/enquiry/service}">Service Enquiry</a></li>
+                <li><a th:href="@{/api/v1/enquiry/partnership}">Partnership Enquiry</a></li>
+                <li><a th:href="@{/api/v1/enquiry/contact-us}">Contact Us Enquiry</a></li>
+            </ul>
+        </li>
+        <!-- /Team -->
+        <li class="menu-item">
+            <a th:href="@{/api/v1/subscriber}">
+                <span><i class="material-icons fs-16">diversity_3</i>Subscriber</span>
+            </a>
+        </li>
+        <li class="menu-item">
+            <a th:href="@{/api/v1/testimonial}">
+                <span><i class="material-icons fs-16">reviews</i>Testimonial</span>
+            </a>
+        </li>
+        <li class="menu-item">
+            <a href="#" class="has-chevron" data-toggle="collapse" data-target="#invoice" aria-expanded="false"
+               aria-controls="team">
+                <span><i class="material-icons fs-16">headphones</i>Invoice </span>
+            </a>
+            <ul id="invoice" class="collapse" aria-labelledby="invoice" data-parent="#side-nav-accordion">
+                <li><a th:href="@{/api/v1/invoice}">All Invoices</a></li>
+                <li><a th:href="@{/api/v1/invoice/new}">Create Invoice</a></li>
+            </ul>
+        </li>
+    </ul>
+</aside>
+<!-- Sidebar Right -->
+<aside id="ms-recent-activity" class="side-nav fixed ms-aside-right ms-scrollable min-width-350">
+
+    <div class="ms-aside-header">
+        <ul class="nav nav-tabs d-flex nav-justified mb-4" role="tablist">
+            <li role="presentation" class="fs-12"><a href="#activityLog" aria-controls="activityLog" class="active"
+                                                     role="tab" data-toggle="tab"> Activity Log</a></li>
+            <li role="presentation" class="fs-12"><a href="#recentPosts" aria-controls="recentPosts" role="tab"
+                                                     data-toggle="tab"> Settings </a></li>
+            <li>
+                <button type="button" class="close ms-toggler text-center" data-target="#ms-recent-activity"
+                        data-toggle="slideRight"><span aria-hidden="true">&times;</span></button>
+            </li>
+        </ul>
+    </div>
+
+    <div class="ms-aside-body">
+
+        <div class="tab-content">
+
+            <div role="tabpanel" class="tab-pane active fade show" id="activityLog">
+                <ul class="ms-activity-log">
+                    <li>
+                        <div class="ms-btn-icon btn-pill icon btn-light">
+                            <i class="flaticon-gear"></i>
+                        </div>
+                        <h6>Update 1.0.0 Pushed</h6>
+                        <span> <i class="material-icons">event</i>1 January, 2022</span>
+                        <p class="fs-14">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque scelerisque
+                            diam non nisi semper, ula in sodales vehicula....</p>
+                    </li>
+                    <li>
+                        <div class="ms-btn-icon btn-pill icon btn-success">
+                            <i class="flaticon-tick-inside-circle"></i>
+                        </div>
+                        <h6>Profile Updated</h6>
+                        <span> <i class="material-icons">event</i>4 March, 2022</span>
+                        <p class="fs-14">Curabitur purus sem, malesuada eu luctus eget, suscipit sed turpis. Nam
+                            pellentesque felis vitae justo accumsan, sed semper nisi sollicitudin...</p>
+                    </li>
+                    <li>
+                        <div class="ms-btn-icon btn-pill icon btn-warning">
+                            <i class="flaticon-alert-1"></i>
+                        </div>
+                        <h6>Your payment is due</h6>
+                        <span> <i class="material-icons">event</i>1 January, 2022</span>
+                        <p class="fs-14">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque scelerisque
+                            diam non nisi semper, ula in sodales vehicula....</p>
+                    </li>
+                    <li>
+                        <div class="ms-btn-icon btn-pill icon btn-danger">
+                            <i class="flaticon-alert"></i>
+                        </div>
+                        <h6>Database Error</h6>
+                        <span> <i class="material-icons">event</i>4 March, 2022</span>
+                        <p class="fs-14">Curabitur purus sem, malesuada eu luctus eget, suscipit sed turpis. Nam
+                            pellentesque felis vitae justo accumsan, sed semper nisi sollicitudin...</p>
+                    </li>
+                    <li>
+                        <div class="ms-btn-icon btn-pill icon btn-info">
+                            <i class="flaticon-information"></i>
+                        </div>
+                        <h6>Checkout what's Trending</h6>
+                        <span> <i class="material-icons">event</i>1 January, 2022</span>
+                        <p class="fs-14">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque scelerisque
+                            diam non nisi semper, ula in sodales vehicula....</p>
+                    </li>
+                    <li>
+                        <div class="ms-btn-icon btn-pill icon btn-secondary">
+                            <i class="flaticon-diamond"></i>
+                        </div>
+                        <h6>Your Dashboard is ready</h6>
+                        <span> <i class="material-icons">event</i>4 March, 2022</span>
+                        <p class="fs-14">Curabitur purus sem, malesuada eu luctus eget, suscipit sed turpis. Nam
+                            pellentesque felis vitae justo accumsan, sed semper nisi sollicitudin...</p>
+                    </li>
+                </ul>
+                <a href="#" class="btn btn-primary d-block"> View All </a>
+            </div>
+
+            <div role="tabpanel" class="tab-pane fade" id="recentPosts">
+
+                <h6>General Settings</h6>
+                <div class="ms-form-group">
+                    <span class="ms-option-name fs-14">Location Tracking</span>
+                    <label class="ms-switch float-right">
+                        <input type="checkbox">
+                        <span class="ms-switch-slider round"></span>
+                    </label>
+                </div>
+                <div class="ms-form-group">
+                    <span class="ms-option-name fs-14">Allow Notifications</span>
+                    <label class="ms-switch float-right">
+                        <input type="checkbox">
+                        <span class="ms-switch-slider round"></span>
+                    </label>
+                </div>
+                <div class="ms-form-group">
+                    <span class="ms-option-name fs-14">Allow Popups</span>
+                    <label class="ms-switch float-right">
+                        <input type="checkbox" checked>
+                        <span class="ms-switch-slider round"></span>
+                    </label>
+                </div>
+                <h6>Log Settings</h6>
+                <div class="ms-form-group">
+                    <span class="ms-option-name fs-14">Enable Logging</span>
+                    <label class="ms-switch float-right">
+                        <input type="checkbox" checked>
+                        <span class="ms-switch-slider round"></span>
+                    </label>
+                </div>
+                <div class="ms-form-group">
+                    <span class="ms-option-name fs-14">Audit Logs</span>
+                    <label class="ms-switch float-right">
+                        <input type="checkbox">
+                        <span class="ms-switch-slider round"></span>
+                    </label>
+                </div>
+                <div class="ms-form-group">
+                    <span class="ms-option-name fs-14">Error Logs</span>
+                    <label class="ms-switch float-right">
+                        <input type="checkbox" checked>
+                        <span class="ms-switch-slider round"></span>
+                    </label>
+                </div>
+                <h6>Advanced Settings</h6>
+                <div class="ms-form-group">
+                    <span class="ms-option-name fs-14">Enable Logging</span>
+                    <label class="ms-switch float-right">
+                        <input type="checkbox" checked>
+                        <span class="ms-switch-slider round"></span>
+                    </label>
+                </div>
+                <div class="ms-form-group">
+                    <span class="ms-option-name fs-14">Audit Logs</span>
+                    <label class="ms-switch float-right">
+                        <input type="checkbox">
+                        <span class="ms-switch-slider round"></span>
+                    </label>
+                </div>
+                <div class="ms-form-group">
+                    <span class="ms-option-name fs-14">Error Logs</span>
+                    <label class="ms-switch float-right">
+                        <input type="checkbox" checked>
+                        <span class="ms-switch-slider round"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</aside>

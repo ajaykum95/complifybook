@@ -1,0 +1,185 @@
+<div id="alertBoxDiv"></div>
+<div class="callback-whatsapp">
+    <div class="container">
+        <div class="callback">
+            <a href="javascript:void(0)" class="toggle-box">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-telephone" viewBox="0 0 16 16">
+                    <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z"/>
+                </svg>
+                <span>Schedule a call back</span>
+            </a>
+        </div>
+        <div class="whatsapp">
+            <a href="javascript:void(0)" id="whatsappMobileChat">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-whatsapp" viewBox="0 0 16 16">
+                    <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
+                </svg>
+                <span>Chat with us</span>
+            </a>
+        </div>
+    </div>
+</div>
+<footer id="footer" class="footer">
+    <div class="footer-newsletter">
+        <div class="container">
+            <div class="row justify-content-center text-center">
+                <div class="col-lg-6">
+                    <h4>Join Our Newsletter</h4>
+                    <p>Subscribe to our newsletter and receive the latest news about our products and services!</p>
+                    <form action="" method="post" class="php-email-form">
+                        <div class="newsletter-form"><input type="email" name="email"><input type="submit" value="Subscribe"></div>
+                        <div class="loading">Loading</div>
+                        <div class="error-message"></div>
+                        <div class="sent-message">Your subscription request has been sent. Thank you!</div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container footer-top">
+        <div class="row gy-4">
+            <div class="col-lg-3 col-md-3">
+                <a th:href="@{/}" class="d-flex align-items-center ml-8">
+                    <img th:src="@{/public/assets/img/logo.svg}" class="img-fluid" alt="Logo">
+                </a>
+                <div class="footer-contact pt-4">
+                    <p>2nd Floor, A-154A, A Block, Sector 63</p>
+                    <p>Noida, Uttar Pradesh 201301</p>
+                    <p class="mt-3"><strong>Phone:</strong> <span>+91 8178488820</span></p>
+                    <p><strong>Email:</strong> <span>info@complifybook.com</span></p>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3 footer-links">
+                <h4>Useful Links</h4>
+                <ul>
+                    <li><i class="bi bi-chevron-right"></i> <a th:href="@{/contact-us}">Contact Us</a></li>
+                    <li><i class="bi bi-chevron-right"></i> <a th:href="@{/about-us}">About us</a></li>
+                    <li><i class="bi bi-chevron-right"></i> <a th:href="@{/become-partner}">Become a partner</a></li>
+                    <li><i class="bi bi-chevron-right"></i> <a th:href="@{/online-payment}">Online Payment</a></li>
+                    <li><i class="bi bi-chevron-right"></i> <a th:href="@{/calculator}">Calculator</a></li>
+                    <li><i class="bi bi-chevron-right"></i> <a th:href="@{/service/all}">All Services</a></li>
+                </ul>
+            </div>
+
+            <div class="col-lg-3 col-md-3 footer-links">
+                <h4>Our Services</h4>
+                <ul>
+                    <li><i class="bi bi-chevron-right"></i> <a href="#">Nidhi Company Registration</a></li>
+                    <li><i class="bi bi-chevron-right"></i> <a href="#">Producer Company Registration</a></li>
+                    <li><i class="bi bi-chevron-right"></i> <a href="#">USA</a></li>
+                    <li><i class="bi bi-chevron-right"></i> <a href="#">Private Limited Company Registration</a></li>
+                    <li><i class="bi bi-chevron-right"></i> <a href="#">PPI License</a></li>
+                    <li><i class="bi bi-chevron-right"></i> <a href="#">NBFC Registration</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-3 col-md-3 footer-links">
+                <h4>&nbsp;</h4>
+                <ul>
+                    <li><i class="bi bi-chevron-right"></i> <a href="#">Vehicle Scrapping Plant</a></li>
+                    <li><i class="bi bi-chevron-right"></i> <a href="#">Plastic Waste Recycling Plant Setup</a></li>
+                    <li><i class="bi bi-chevron-right"></i> <a href="#">E-Waste License</a></li>
+                    <li><i class="bi bi-chevron-right"></i> <a href="#">EPR Compliance</a></li>
+                    <li><i class="bi bi-chevron-right"></i> <a href="#">EPR Authorization</a></li>
+                    <li><i class="bi bi-chevron-right"></i> <a th:href="@{/service/all}">More..</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container copyright">
+        <div class="row">
+            <div class="col-sm-4 col-md-4">
+                <p>© <span>Copyright</span> <strong class="px-1 sitename">complifybook</strong> <span>All Rights Reserved</span></p>
+            </div>
+            <div class="col-sm-8 col-md-8">
+                <ul class="nav justify-content-center justify-content-md-end">
+                    <li class="nav-item">
+                        <a th:href="@{/faq}" class="nav-link">FAQ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a th:href="@{/sitemap}" class="nav-link">Sitemap</a>
+                    </li>
+                    <li class="nav-item">
+                        <a th:href="@{/privacy-policy}" class="nav-link">Privacy Policy</a>
+                    </li>
+                    <li class="nav-item">
+                        <a th:href="@{/terms-of-service}" class="nav-link">Terms of Service</a>
+                    </li>
+                    <li class="nav-item">
+                        <a th:href="@{/refund-policy}" class="nav-link">Refund Policy</a>
+                    </li>
+                    <li class="nav-item">
+                        <a th:href="@{/cookies}" class="nav-link">Cookies</a>
+                    </li>
+                    <li class="nav-item">
+                        <a th:href="@{/terms-of-use}" class="nav-link">Terms of Use</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</footer>
+<div class="sidebar-contact" id="enquiryForm">
+    <section class="call-button toggle-box p-0">
+        <a class="cc-calto-action-ripple hover" href="javascript:void(0)" id="callBackHover">
+            <i class="bi bi-telephone"></i>
+            <span>Schedule a call back</span>
+        </a>
+    </section>
+    <div class="scroll">
+        <div class="card form">
+            <a href="javascript:void(0)" class="call-button toggle-box"><i class="bi bi-x"></i></a>
+            <h3 class="text-underline">Schedule a call back</h3>
+            <form id="callBackM">
+                <div class="form-group pb-20">
+                    <input type="text" class="form-control" name="nameM" id="nameM" placeholder="Name" required>
+                    <div id="nameErrorContainerM"></div>
+                </div>
+                <div class="form-group pb-20">
+                    <input type="email" class="form-control" name="emailM" id="emailM" placeholder="Email (Optional)">
+                    <div id="emailErrorContainerM"></div>
+                </div>
+                <div class="form-group">
+                    <div class="mobile">
+                        <span class="input-group-text">+91</span>
+                        <input type="text" class="form-control" name="mobileM" id="mobileM" placeholder="Mobile" maxlength="10" required>
+                    </div>
+                    <div id="mobileErrorContainerM"></div>
+                </div>
+                <div class="form-group otp pt-20">
+                    <div class="d-flex">
+                        <input type="text" class="form-control" name="otpM" id="otpM" placeholder="OTP" maxlength="4">
+                        <span class="input-group-text" id="timerM">00:00</span>
+                        <span class="input-group-text cursor" id="resendButtonM">Resend</span>
+                    </div>
+                    <div id="otpErrorContainerM"></div>
+                </div>
+
+                <div class="form-check">
+                    <input type="checkbox" checked="" class="form-check-input cursor" name="whatsappM" id="whatsappM">
+                    <label class="form-check-label" for="whatsappM">Get updates on whats'app</label>
+                </div>
+                <div class="form-group text-end">
+                    <button type="button" class="btn btn-primary w-100" id="sendOtpM">Submit</button>
+                    <button type="submit" class="btn btn-primary d-none w-100" id="submitCallBackM">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="whatsapp-side">
+    <section class="whatsapp-button p-0">
+        <a class="cc-calto-action-ripple" href="javascript:void(0)" id="whatsappWebChat">
+            <i class="bi bi-whatsapp"></i>
+            <span>Chat With Us</span>
+        </a>
+    </section>
+</div>
+<!-- Scroll Top -->
+<a href="#" id="scroll-top" class="scroll-top align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+<!-- Preloader -->
+<div id="preloader"></div>

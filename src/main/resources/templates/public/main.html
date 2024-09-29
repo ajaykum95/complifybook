@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="layout(bodyContent)">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>title</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+
+    <!-- Favicons -->
+    <link th:href="@{/public/assets/img/favicon.png}" rel="icon">
+    <link th:href="@{/public/assets/img/apple-touch-icon.png}" rel="apple-touch-icon">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link th:href="@{/public/assets/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/public/assets/vendor/bootstrap-icons/bootstrap-icons.css}" rel="stylesheet">
+    <link th:href="@{/public/assets/vendor/aos/aos.css}" rel="stylesheet">
+    <link th:href="@{/public/assets/vendor/glightbox/css/glightbox.min.css}" rel="stylesheet">
+    <link th:href="@{/public/assets/vendor/swiper/swiper-bundle.min.css}" rel="stylesheet">
+
+    <!-- Main CSS File -->
+    <link th:href="@{/public/assets/css/main.css}" rel="stylesheet">
+    <link th:href="@{/public/assets/css/alert.css}" rel="stylesheet">
+    <link th:href="@{/public/assets/css/navbar.css}" rel="stylesheet">
+</head>
+<body>
+<div th:replace="public/includes/header"></div>
+
+<!--   Content area -->
+<div th:replace="${bodyContent}"></div>
+<!-- END Content area  -->
+
+<div th:replace="public/includes/footer"></div>
+
+<script th:src="@{/public/assets/js/jquery.min.js}"></script>
+<script th:src="@{/public/assets/js/jquery.validate.min.js}"></script>
+<!-- Vendor JS Files -->
+<script th:src="@{/public/assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/public/assets/vendor/aos/aos.js}"></script>
+<script th:src="@{/public/assets/vendor/glightbox/js/glightbox.min.js}"></script>
+<script th:src="@{/public/assets/vendor/swiper/swiper-bundle.min.js}"></script>
+<script th:src="@{/public/assets/vendor/waypoints/noframework.waypoints.js}"></script>
+<script th:src="@{/public/assets/vendor/imagesloaded/imagesloaded.pkgd.min.js}"></script>
+<script th:src="@{/public/assets/vendor/isotope-layout/isotope.pkgd.min.js}"></script>
+
+<!-- Main JS File -->
+<script th:src="@{/public/assets/js/navbar.js}"></script>
+<script th:src="@{/public/assets/js/constants.js}"></script>
+<script th:src="@{/public/assets/js/main.js}"></script>
+<script th:src="@{/public/assets/js/validation.js}"></script>
+<script th:src="@{/public/assets/js/alert.js}"></script>
+<script th:src="@{/public/assets/js/api.js}"></script>
+</body>
+</html>
