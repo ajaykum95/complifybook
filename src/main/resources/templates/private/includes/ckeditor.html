@@ -1,0 +1,65 @@
+<script type="importmap">
+    {
+      "imports": {
+        "ckeditor5": "/private/assets/js/ckeditor5.js"
+      }
+    }
+</script>
+
+<script type="module">
+    import {
+      ClassicEditor,
+      Essentials,
+      Paragraph,
+      Bold,
+      Italic,
+      Font,
+      Alignment,
+      BlockQuote,
+      Heading,
+      Image,
+      ImageToolbar,
+      ImageUpload,
+      Link,
+      List,
+      Table,
+      TableToolbar,
+      MediaEmbed
+    } from 'ckeditor5';
+
+    // Select all elements with the class 'editor'
+    const editors = document.querySelectorAll('.texteditor');
+    editors.forEach(editorElement => {
+      ClassicEditor
+        .create(editorElement, {
+          plugins: [
+            Essentials, Paragraph, Bold, Italic, Font, Alignment, BlockQuote, Heading,
+            Image, ImageToolbar, ImageUpload, Link, List, Table, TableToolbar, MediaEmbed
+          ],
+          toolbar: [
+            'heading', '|', 'bold', 'italic', 'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', '|',
+            'link', 'bulletedList', 'numberedList', '|', 'alignment', 'blockQuote', 'insertTable', 'imageUpload', 'mediaEmbed', '|',
+            'undo', 'redo'
+          ],
+          image: {
+            toolbar: ['imageTextAlternative', 'imageStyle:full', 'imageStyle:side']
+          },
+          table: {
+            contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells']
+          }
+        })
+        .then(editorInstance => {
+          console.log('Editor initialized:', editorInstance);
+        })
+        .catch(error => {
+          console.error('Error initializing editor:', error);
+        });
+    });
+
+    $(document).ready(function() {
+        $('.select-multiple').select2({
+            placeholder: "Select services",
+            allowClear: true
+        });
+    });
+</script>

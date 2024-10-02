@@ -29,13 +29,13 @@
     <link th:href="@{/public/assets/css/navbar.css}" rel="stylesheet">
 </head>
 <body>
-<div th:replace="public/includes/header"></div>
+<div th:replace="~{public/includes/header}"></div>
 
 <!--   Content area -->
 <div th:replace="${bodyContent}"></div>
 <!-- END Content area  -->
 
-<div th:replace="public/includes/footer"></div>
+<div th:replace="~{public/includes/footer}"></div>
 
 <script th:src="@{/public/assets/js/jquery.min.js}"></script>
 <script th:src="@{/public/assets/js/jquery.validate.min.js}"></script>

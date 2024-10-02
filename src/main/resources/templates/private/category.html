@@ -8,11 +8,11 @@
             <div class="ms-panel">
                 <div class="ms-panel-header d-flex justify-content-between">
                     <h2 class="pt-2">Manage Category</h2>
-                    <a href=""><button class="btn btn-primary">New Category</button></a>
+                    <a th:href="@{/api/v1/category/new}"><button class="btn btn-primary">New Category</button></a>
                 </div>
                 <div class="ms-panel-body">
                     <div class="table-responsive">
-                        <table id="data-table-1" class="table table-hover w-100"></table>
+                        <table id="serviceCategory" class="table table-hover w-100"></table>
                     </div>
                 </div>
             </div>

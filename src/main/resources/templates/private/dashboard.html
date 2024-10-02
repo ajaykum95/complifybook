@@ -13,9 +13,9 @@
     <link rel="icon" type="image/png" sizes="32x32" th:href="@{/private/assets/img/favicon/M-favicon.png}">
 </head>
 <body class="ms-body ms-aside-left-open ms-dark-theme ms-has-quickbar">
-<div th:replace="private/includes/left-sidebar"></div>
+<div th:replace="~{private/includes/left-sidebar}"></div>
 <main class="body-content">
-    <div th:replace="private/includes/navbar"></div>
+    <div th:replace="~{private/includes/navbar}"></div>
     <!-- Body Content Wrapper -->
     <div class="ms-content-wrapper">
         <div class="row">
@@ -447,8 +447,8 @@
         </div>
     </div>
 </main>
-<div th:replace="private/includes/right-sidebar"></div>
-<div th:replace="private/includes/modals"></div>
+<div th:replace="~{private/includes/right-sidebar}"></div>
+<div th:replace="~{private/includes/modals}"></div>
 <script th:src="@{/private/assets/js/jquery-3.3.1.min.js}"></script>
 <script th:src="@{/private/assets/js/popper.min.js}"></script>
 <script th:src="@{/private/assets/js/bootstrap.min.js}"></script>

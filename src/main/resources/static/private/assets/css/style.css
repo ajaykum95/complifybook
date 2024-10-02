@@ -338,10 +338,10 @@ img {
   max-width: 100%;
   height: auto;
 }
-ul {
+/*ul {
   list-style: none;
   padding: 0;
-}
+}*/
 
 .ms-scrollable,
 .ms-aside-scrollable{
@@ -6164,7 +6164,7 @@ body.ms-dark-theme, .ms-dark-theme a,
 .ms-dark-theme .irs--round .irs-min, .ms-dark-theme .irs--round .irs-max,
 .ms-dark-theme .irs--big .irs-min, .ms-dark-theme .irs--big .irs-max{
   background-color: #323a67;
-  color: #5c6dc0;
+  color: #fff;
 }
 .ms-dark-theme input.ms-form-input::placeholder,
 .ms-dark-theme input::placeholder,
@@ -6798,3 +6798,61 @@ label.error{color: #db3c36;
 #term-error{width: 10rem;
     left: 0rem;
     top: -1rem;display: none}
+.action a:not(:last-child){
+    padding-right: 10px;
+    border-right: 2px solid #fff;
+ }
+ .action a:last-child{
+     padding-left: 6px;
+  }
+  .ck-powered-by{display: none !important}
+  .ck-editor{width: 100%!important}
+  .small .ck-editor__editable_inline {
+         min-height: 200px;
+  }
+  .large .ck-editor__editable_inline {
+      min-height: 300px;
+  }
+.ck-editor__editable_inline {
+   background-color: #323a67;  /* Background color */
+   color: #fff;  /* Text color */
+   overflow: auto
+}
+.ck.ck-toolbar,
+.ck-list .ck-button {
+    background-color: #3b426a !important;
+    color: #fff !important;
+}
+.ck.ck-toolbar .ck-button {
+    color: #fff;
+}
+.ck-content {
+   background-color: #323a67 !important; /* Dark background color */
+   color: #fff !important;              /* White text color */
+}
+.ck-toolbar .ck-button:hover .ck-icon {
+    color: black; /* Change icon color to black on hover */
+}
+.ck-toolbar .ck-button:hover {
+  color: black;
+}
+.select2-container--default{width: 100% !important}
+.select2-container--default .select2-selection.select2-selection--multiple{
+    height: auto;
+    padding: 7px;
+    line-height: 1;
+    background-color: #323a67
+}
+.select2-container--default .select2-selection.select2-selection--multiple ul li span{
+    color: #323a67 !important;
+    font-size: 14px
+}
+.select2-container--default .select2-results__option {
+    background-color: #323a67;
+    color: #fff;
+}
+.service-tag{padding-bottom: 10px;}
+.service-tag h2{
+    border-bottom: 2px solid #eee;
+    padding-bottom: 5px;
+}
