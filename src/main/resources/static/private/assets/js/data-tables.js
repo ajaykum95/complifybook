@@ -353,6 +353,162 @@ if ($('#contactUsEnquiry').length) {
       }
       fetchContactUsEnquiryData();
     }
+    if ($('#subscriberTable').length) {
+          function fetchSubscriberData() {
+            $.ajax({
+              url: host + '/api/v1/subscriber/fetchAll',
+              type: 'GET',
+              dataType: 'json',
+              success: function(response) {
+                var subscriberDataSet = response.map(function(item) {
+                  return [
+                      item.id,
+                      item.email,
+                      item.urlPath,
+                      item.status,
+                      item.subscribedOn,
+                  ];
+                });
+                var subscriberTable = $('#subscriberTable').DataTable({
+                  data: subscriberDataSet,
+                  columns: [
+                    { title: "ID", visible: false },
+                    { title: "Email" },
+                    { title: "Url Path" },
+                    { title: "Status" },
+                    { title: "Subscribed On" },
+                    {
+                      title: "Actions",
+                      orderable: false, // Disable sorting for the Action column
+                      data: null,
+                      render: function(data, type, row) {
+                        return `
+                          <div class="action">
+                            <a href="/api/v1/subscriber/edit/${row[0]}">Edit</a>
+                            <a href="javascript:void(0);" onclick="deleteSubCategory(${row[0]})">Delete</a>
+                          </div>
+                        `;
+                      }
+                    }
+                  ],
+                  destroy: true
+                });
+              },
+              error: function(error) {
+                console.error("Error fetching subscriber data:", error);
+              }
+            });
+          }
+          fetchSubscriberData();
+        }
+    if ($('#testimonialDataTable').length) {
+      function fetchTestimonialData() {
+        $.ajax({
+          url: host + '/api/v1/testimonial/fetchAll',
+          type: 'GET',
+          dataType: 'json',
+          success: function(response) {
+            var testimonialDataSet = response.map(function(item) {
+              return [
+                  item.id,
+                  `<a href="${item.imagePath}" class="tbl-img" target="_blank">
+                    <img src="${item.imagePath}" alt="Photo" />
+                  </a>`,
+                  item.reviewerName,
+                  item.position,
+                  item.rating,
+                  item.status,
+                  item.createdAt,
+              ];
+            });
+            var testimonialDataTable = $('#testimonialDataTable').DataTable({
+              data: testimonialDataSet,
+              columns: [
+                { title: "ID", visible: false },
+                { title: "Photo" },
+                { title: "Reviewer Name" },
+                { title: "Position" },
+                { title: "Rating" },
+                { title: "Status" },
+                { title: "Posted On" },
+                {
+                  title: "Actions",
+                  orderable: false, // Disable sorting for the Action column
+                  data: null,
+                  render: function(data, type, row) {
+                    return `
+                      <div class="action">
+                        <a href="/api/v1/testimonial/edit/${row[0]}">Edit</a>
+                        <a href="javascript:void(0);" onclick="deleteSubCategory(${row[0]})">Delete</a>
+                      </div>
+                    `;
+                  }
+                }
+              ],
+              destroy: true
+            });
+          },
+          error: function(error) {
+            console.error("Error fetching testimonial data:", error);
+          }
+        });
+      }
+      fetchTestimonialData();
+    }
+    if ($('#invoiceDataTable').length) {
+      function fetchInvoiceData() {
+        $.ajax({
+          url: host + '/api/v1/invoice/fetchAll',
+          type: 'GET',
+          dataType: 'json',
+          success: function(response) {
+            var invoiceDataSet = response.map(function(item) {
+              return [
+                  item.id,
+                  item.orderNumber,
+                  item.customerName,
+                  item.invoiceAmount,
+                  item.taxAmount,
+                  item.dueAmount,
+                  item.date,
+                  item.paymentStatus
+              ];
+            });
+            var invoiceDataTable = $('#invoiceDataTable').DataTable({
+              data: invoiceDataSet,
+              columns: [
+                { title: "ID", visible: false },
+                { title: "Order No." },
+                { title: "Customer Name" },
+                { title: "Total Amount" },
+                { title: "Tax Amount" },
+                { title: "Due Amount" },
+                { title: "Created On" },
+                { title: "Payment Status" },
+                {
+                  title: "Actions",
+                  orderable: false, // Disable sorting for the Action column
+                  data: null,
+                  render: function(data, type, row) {
+                    return `
+                      <div class="action">
+                        <a href="/api/v1/invoice/edit/${row[0]}">Edit</a>
+                        <a href="javascript:void(0);" onclick="deleteSubCategory(${row[0]})">Delete</a>
+                      </div>
+                    `;
+                  }
+                }
+              ],
+              destroy: true
+            });
+          },
+          error: function(error) {
+            console.error("Error fetching invoice data:", error);
+          }
+        });
+      }
+      fetchInvoiceData();
+    }
 })(jQuery);
 
 function deleteCategory(categoryId){
@@ -366,4 +522,7 @@ function deleteService(serviceId){
 }
 function deleteServiceDetails(serviceId){
     alert(serviceId);
+}
+function slugging(content, targetId){
+	$("#"+targetId).val(content. toLowerCase(). replace(/ /g,'-'). replace(/[^\w-]+/g,''));
 }

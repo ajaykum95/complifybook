@@ -21,6 +21,10 @@ public class EnquiryController {
     public String serviceEnquiry(){
         return "private/service-enquiry";
     }
+    @GetMapping("/service/new")
+    public String newServiceEnquiry(){
+        return "private/service-enquiry-new";
+    }
     @GetMapping("/service/fetchAll")
     @ResponseBody
     public List<ServiceEnquiryResponse> serviceEnquiryAll(){

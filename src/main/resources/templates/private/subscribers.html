@@ -7,13 +7,13 @@
         <div class="col-md-12">
             <div class="ms-panel-header d-flex justify-content-between">
                 <h2 class="pt-2">Manage Subscribers</h2>
-                <a href="">
+                <a th:href="@{/api/v1/subscriber/new}">
                     <button class="btn btn-primary">New Subscriber</button>
                 </a>
             </div>
             <div class="ms-panel-body">
                 <div class="table-responsive">
-                    <table id="data-table-1" class="table table-hover w-100"></table>
+                    <table id="subscriberTable" class="table table-hover w-100"></table>
                 </div>
             </div>
         </div>

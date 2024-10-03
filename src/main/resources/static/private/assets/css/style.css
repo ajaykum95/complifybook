@@ -6856,3 +6856,9 @@ label.error{color: #db3c36;
     border-bottom: 2px solid #eee;
     padding-bottom: 5px;
 }
+.tbl-img img {
+    width: 22px;
+    height: auto;
+    object-fit: cover;
+    margin: 0 !important;
+}
