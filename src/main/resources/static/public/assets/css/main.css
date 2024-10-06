@@ -1792,7 +1792,7 @@ section,
 
 .service-details .summary ul li {
   padding-bottom: 30px;
-  display: flex;
+  display: block;
   align-items: center;
 }
 

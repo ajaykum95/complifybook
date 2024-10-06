@@ -1,7 +1,7 @@
 package com.abhaempire.complifybook.controllers;
 
 import com.abhaempire.complifybook.dtos.InvoiceResponse;
-import com.abhaempire.complifybook.models.enums.PaymentStatus;
+import com.abhaempire.complifybook.enums.PaymentStatus;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;

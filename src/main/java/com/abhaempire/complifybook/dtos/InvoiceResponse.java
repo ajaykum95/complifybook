@@ -1,6 +1,6 @@
 package com.abhaempire.complifybook.dtos;
 
-import com.abhaempire.complifybook.models.enums.PaymentStatus;
+import com.abhaempire.complifybook.enums.PaymentStatus;
 import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

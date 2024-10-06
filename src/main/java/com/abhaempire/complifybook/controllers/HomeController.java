@@ -6,10 +6,27 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class HomeController {
 
+//    private final UserService userService;
+
+   /* public HomeController(UserService userService) {
+        this.userService = userService;
+    }*/
+
     @GetMapping("/")
     public String home(){
         return "public/index";
     }
+    @GetMapping({"/login", "/signup"})
+    public String loginSignup() {
+        return "public/login-signup";
+    }
+    /*@PostMapping("/signup")
+    public String signup(@RequestParam String firstName, @RequestParam String lastName,
+                         @RequestParam String email, @RequestParam String password){
+        User user = ObjectMapper.mapToSaveUser(firstName, lastName, email, password);
+        userService.saveUser(user);
+        return "public/login-signup";
+    }*/
     @GetMapping("/contact-us")
     public String contactUs(){
         return "public/contact-us";

@@ -1,6 +1,6 @@
+var host = window.location.origin;
 (function($) {
   'use strict';
-  var host = window.location.origin;
 //  all category
 if ($('#serviceCategory').length) {
     function fetchServiceCategoryData() {
@@ -511,11 +511,17 @@ if ($('#contactUsEnquiry').length) {
     }
 })(jQuery);
 
-function deleteCategory(categoryId){
-    alert(categoryId);
+function deleteCategory(categoryId) {
+    var userConfirmed = confirm("Are you sure you want to delete this category?");
+    if (userConfirmed) {
+        window.location.href = "/api/v1/category/delete/" + categoryId;
+    }
 }
 function deleteSubCategory(subCategoryId){
-    alert(subCategoryId);
+    var userConfirmed = confirm("Are you sure you want to delete this sub-category?");
+    if (userConfirmed) {
+        window.location.href = "/api/v1/sub-category/delete/" + subCategoryId;
+    }
 }
 function deleteService(serviceId){
     alert(serviceId);
@@ -526,3 +532,67 @@ function deleteServiceDetails(serviceId){
 function slugging(content, targetId){
 	$("#"+targetId).val(content. toLowerCase(). replace(/ /g,'-'). replace(/[^\w-]+/g,''));
 }
+function updateTagService(subCategoryId){
+    if (subCategoryId) {
+        $.ajax({
+            url: host + '/api/v1/service/tagService/' + subCategoryId,
+            type: 'GET',
+            data: null,
+            success: function(response) {
+                setTagService(response);
+            },
+            error: function(xhr, status, error) {
+                console.error('AJAX Error: ' + status + error);
+            }
+        });
+    }
+ }
+function updateSubcategory(categoryId){
+    if (categoryId) {
+        $.ajax({
+            url: host + '/api/v1/service/subCategories/' + categoryId,
+            type: 'GET',
+            data: null,
+            success: function(response) {
+                setSubCategory(response);
+            },
+            error: function(xhr, status, error) {
+                console.error('AJAX Error: ' + status + error);
+            }
+        });
+    } else {
+        $('#subCategory').empty();
+        appendEmptyOption("subCategory","Select Sub-category");
+    }
+ }
+ function appendEmptyOption(elementId, text){
+    var option = $('<option></option>')
+                .attr('value', "")
+                .text(text);
+    $('#'+elementId).append(option);
+ }
+  function setTagService(response) {
+      $.each(response, function(index, services) {
+          var optionValue = services.id;
+          var optionText = services.serviceName;
+
+          // Check if the option already exists
+          if ($('#tagService option[value="' + optionValue + '"]').length === 0) {
+              var option = $('<option></option>')
+                  .attr('value', optionValue)
+                  .text(optionText);
+              $('#tagService').append(option);
+          }
+      });
+      $('#tagService').select2();
+  }
+ function setSubCategory(response){
+    $('#subCategory').empty();
+    appendEmptyOption("subCategory","Select Sub-Category");
+     $.each(response, function(index, subCategory) {
+         var option = $('<option></option>')
+             .attr('value', subCategory.id)
+             .text(subCategory.subCategoryName);
+         $('#subCategory').append(option);
+     });
+ }

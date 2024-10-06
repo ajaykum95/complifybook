@@ -4,7 +4,7 @@
         <!-- Page Title -->
         <div class="page-title">
             <div class="container">
-                <h1><span>GST Registration Online</span></h1>
+                <h1><span th:text="${service.name}">GST Registration Online</span></h1>
             </div>
         </div><!-- End Page Title -->
 
@@ -15,15 +15,7 @@
                 <div class="row gy-4">
 
                     <div class="col-lg-8">
-                        <div class="summary">
-                            <ul>
-                                <li><p>GST Application filing in <b>2 business days</b> Starting at <del>₹749</del> <b>₹499.</b></p></li>
-                                <li><p>Simple process for <b>new GST registration, application status tracking,</b> and <b>filing for clarifications.</b></p></li>
-                                <li><p>Tailored services for GST needs of <b>citizens, eCommerce sellers,</b> and <b>government offices.</b></p></li>
-                                <li><p>All <b>GST needs Met: CA-</b>assisted <b>online document submission, GST filing, GSTIN procurement.</b></p></li>
-                                <li><p><b>Assistance</b> for <b>GST e-invoicing, ledger,</b> and <b>invoice maintenance.</b></p></li>
-                            </ul>
-                        </div>
+                        <div class="summary" th:utext="${service.summary}"></div>
                         <div class="row">
                             <div class="col-sm-6 col-md-6">
                                 <div class="banner">
@@ -40,11 +32,11 @@
                                     <div class="google-reviews__right google-reviews-content">
                                         <div class="google-reviews-content__top">
                                             <p class="google-reviews-content__txt">Google</p>
-                                            <p class="google-reviews-content__rating">4.9/5</p>
+                                            <p class="google-reviews-content__rating"><span th:text="${service.rating}"></span>/5</p>
                                             <svg class="google-reviews-content__stars" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 92 15" version="1.1"><g id="" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="stars" fill="#FBBC05"><polygon id="Star" points="7.5 11.25 3.09161061 13.5676275 3.93353806 8.65881373 0.367076128 5.18237254 5.2958053 4.46618627 7.5 0 9.7041947 4.46618627 14.6329239 5.18237254 11.0664619 8.65881373 11.9083894 13.5676275"/><polygon id="Star-Copy" points="26.5 11.25 22.0916106 13.5676275 22.9335381 8.65881373 19.3670761 5.18237254 24.2958053 4.46618627 26.5 0 28.7041947 4.46618627 33.6329239 5.18237254 30.0664619 8.65881373 30.9083894 13.5676275"/><polygon id="Star-Copy-2" points="46.5 11.25 42.0916106 13.5676275 42.9335381 8.65881373 39.3670761 5.18237254 44.2958053 4.46618627 46.5 0 48.7041947 4.46618627 53.6329239 5.18237254 50.0664619 8.65881373 50.9083894 13.5676275"/><polygon id="Star-Copy-3" points="65.5 11.25 61.0916106 13.5676275 61.9335381 8.65881373 58.3670761 5.18237254 63.2958053 4.46618627 65.5 0 67.7041947 4.46618627 72.6329239 5.18237254 69.0664619 8.65881373 69.9083894 13.5676275"/><polygon id="Star-Copy-4" points="84.5 11.25 80.0916106 13.5676275 80.9335381 8.65881373 77.3670761 5.18237254 82.2958053 4.46618627 84.5 0 86.7041947 4.46618627 91.6329239 5.18237254 88.0664619 8.65881373 88.9083894 13.5676275"/></g></g></svg>
                                         </div>
                                         <div class="google-reviews-content__bottom">
-                                            <p class="google-reviews-content__info">16K+ Happy reviews</p>
+                                            <p class="google-reviews-content__info">[[${service.ratingCount}]]K+ Happy reviews</p>
                                         </div>
                                     </div>
                                 </div>
@@ -174,24 +166,8 @@
                         <div class="side-content">
                             <h2>Related services</h2>
                             <nav class="nav flex-column">
-                                <a href="" class="nav-link">
-                                    <span>Private limited company registration</span>
-                                    <i class="bi bi-chevron-right"></i>
-                                </a>
-                                <a href="" class="nav-link">
-                                    <span>Private limited company registration</span>
-                                    <i class="bi bi-chevron-right"></i>
-                                </a>
-                                <a href="" class="nav-link">
-                                    <span>Private limited company registration</span>
-                                    <i class="bi bi-chevron-right"></i>
-                                </a>
-                                <a href="" class="nav-link">
-                                    <span>Private limited company registration</span>
-                                    <i class="bi bi-chevron-right"></i>
-                                </a>
-                                <a href="" class="nav-link">
-                                    <span>Private limited company registration</span>
+                                <a th:each="ts : ${tagServices}" th:href="@{|/service/${ts.slug}|}" class="nav-link">
+                                    <span th:text="${ts.serviceName}">Private limited company registration</span>
                                     <i class="bi bi-chevron-right"></i>
                                 </a>
                             </nav>

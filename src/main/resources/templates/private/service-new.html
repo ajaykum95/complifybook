@@ -7,18 +7,19 @@
         <div class="ms-panel-header">
             <h6>Add Service</h6>
         </div>
+        <h6 th:if="${formMessage}" th:class="${'alert '+ formMessage.alert}"
+            th:text="${formMessage.message}">Message!</h6>
         <div class="ms-panel-body">
-            <form class="needs-validation" novalidate>
+            <form class="needs-validation" th:action="@{/api/v1/service/new}" method="post"
+            th:object="${service}">
                 <div class="form-row">
                     <div class="col-md-6 mb-3">
-                        <label for="validationCustom01">Select Category</label>
+                        <label for="category">Select Category</label>
                         <div class="input-group">
-                            <select class="form-control" id="validationCustom01">
+                            <select class="form-control" id="category" onchange="updateSubcategory(this.value)" name="category">
                                 <option value="">Select Category</option>
-                                <option value="1">Category - 1</option>
-                                <option value="2">Category - 2</option>
-                                <option value="3">Category - 3</option>
-                                <option value="4">Category - 4</option>
+                                <option th:each="category : ${categoryList}" th:value="${category.id}"
+                                        th:text="${category.name}">Category - 1</option>
                             </select>
                             <div class="invalid-feedback">
                                 Please select a service category.
@@ -26,27 +27,23 @@
                         </div>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label for="validationCustom02">Select Sub-Category</label>
+                        <label for="subCategory">Select Sub-Category</label>
                         <div class="input-group">
-                            <select class="form-control" id="validationCustom02">
+                            <select class="form-control" th:field="*{subCategory}">
                                 <option value="">Select Sub-Category</option>
-                                <option value="1">Sub-Category - 1</option>
-                                <option value="2">Sub-Category - 2</option>
-                                <option value="3">Sub-Category - 3</option>
-                                <option value="4">Sub-Category - 4</option>
                             </select>
                             <div class="invalid-feedback">
-                                Please select a service category.
+                                Please select a service sub-category.
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="col-md-12 mb-3">
-                        <label for="validationCustom03">Service Name</label>
+                        <label for="name">Service Name</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" id="validationCustom03"
-                                   placeholder="Service Name" onkeyup="slugging(this.value,'serviceSlug')" required>
+                            <input type="text" class="form-control" th:field="*{name}"
+                                   placeholder="Service Name" onchange="slugging(this.value,'slug')" required>
                             <div class="invalid-feedback">
                                 Please provide a valid name.
                             </div>
@@ -55,9 +52,9 @@
                 </div>
                 <div class="form-row">
                     <div class="col-md-12 mb-3">
-                        <label for="serviceSlug">Service Slug</label>
+                        <label for="slug">Service Slug</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" id="serviceSlug"
+                            <input type="text" class="form-control" th:field="*{slug}"
                                    placeholder="Service Slug" required>
                             <div class="invalid-feedback">
                                 Please provide a valid slug.
@@ -69,7 +66,7 @@
                     <div class="col-md-6 mb-3">
                         <label for="rating">Rating/5</label>
                         <div class="input-group">
-                            <input type="number" class="form-control" id="rating"
+                            <input type="number" step="0.1" max="5" class="form-control" th:field="*{rating}"
                                    placeholder="Rating/5" required>
                             <div class="invalid-feedback">
                                 Please provide a valid rating.
@@ -77,21 +74,21 @@
                         </div>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label for="reviewCount">Review Count</label>
+                        <label for="ratingCount">Rating Count</label>
                         <div class="input-group">
-                            <input type="number" class="form-control" id="reviewCount"
-                                   placeholder="Review count" required>
+                            <input type="number" step="1" maxlength="2" class="form-control" th:field="*{ratingCount}"
+                                   placeholder="Rating count" required>
                             <div class="invalid-feedback">
-                                Please provide a valid number.
+                                Please provide a valid rating count.
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="col-md-12 mb-3">
-                        <label for="serviceSummary">Summary</label>
-                        <div class="input-group small">
-                            <textarea id="serviceSummary" class="texteditor" placeholder="Summary">
+                        <label for="summary">Summary</label>
+                        <div class="input-group">
+                            <textarea th:field="*{summary}" class="texteditor" placeholder="Summary">
                             </textarea>
                             <div class="invalid-feedback">
                                 Please provide service summary.
@@ -106,37 +103,30 @@
                     <div class="col-md-6 mb-3">
                         <label for="subCategory">Select Sub-Category</label>
                         <div class="input-group">
-                            <select class="form-control" id="subCategory">
+                            <select class="form-control" id="subCategory" onchange="updateTagService(this.value)">
                                 <option value="">Select Sub-Category</option>
-                                <option value="1">Sub-Category - 1</option>
-                                <option value="2">Sub-Category - 2</option>
-                                <option value="3">Sub-Category - 3</option>
-                                <option value="4">Sub-Category - 4</option>
+                                <option th:each="subCategory : ${subCategoryList}" th:value="${subCategory.id}"
+                                        th:text="${subCategory.subCategoryName}">Sub-Category - 1</option>
                             </select>
                             <div class="invalid-feedback">
-                                Please select a service category.
+                                Please select a service sub-category.
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label for="relatedServices">Related Services</label>
+                        <label for="tagService">Related Services</label>
                         <div class="input-group">
-                            <select class="select-multiple form-control" id="relatedServices" name="states[]" multiple="multiple">
-                                <option value="1">NBFC Registration</option>
-                                <option value="2">Start Company In India</option>
-                                <option value="3">Start Company In USA</option>
-                                <option value="4">Trademark Registration</option>
-                                <option value="5">GST Registration</option>
+                            <select class="select-multiple form-control" th:id="tagService" name="tagService[]" multiple="multiple">
                             </select>
                             <div class="invalid-feedback">
-                                Please select related services.
+                                Please select tag services.
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="col-md-6">
-                        <button class="btn btn-danger btn-block" type="button">Cancel</button>
+                        <button class="btn btn-danger btn-block" onclick="window.history.back()" type="button">Cancel</button>
                     </div>
                     <div class="col-md-6">
                         <button class="btn btn-primary btn-block" type="submit">Submit</button>

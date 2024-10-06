@@ -6807,7 +6807,7 @@ label.error{color: #db3c36;
   }
   .ck-powered-by{display: none !important}
   .ck-editor{width: 100%!important}
-  .small .ck-editor__editable_inline {
+  .ck-editor__editable_inline {
          min-height: 200px;
   }
   .large .ck-editor__editable_inline {
@@ -6862,3 +6862,4 @@ label.error{color: #db3c36;
     object-fit: cover;
     margin: 0 !important;
 }
+.dataTables_length select option{color: #252851}

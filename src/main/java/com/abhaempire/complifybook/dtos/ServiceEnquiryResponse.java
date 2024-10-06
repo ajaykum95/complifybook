@@ -1,7 +1,6 @@
 package com.abhaempire.complifybook.dtos;
 
-import com.abhaempire.complifybook.models.enums.EnquiryStatus;
-import com.abhaempire.complifybook.models.enums.StatusTypeEnum;
+import com.abhaempire.complifybook.enums.EnquiryStatus;
 import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

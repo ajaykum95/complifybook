@@ -1,7 +1,7 @@
 package com.abhaempire.complifybook.controllers;
 
 import com.abhaempire.complifybook.dtos.SubscriberResponse;
-import com.abhaempire.complifybook.models.enums.StatusTypeEnum;
+import com.abhaempire.complifybook.enums.StatusTypeEnum;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
