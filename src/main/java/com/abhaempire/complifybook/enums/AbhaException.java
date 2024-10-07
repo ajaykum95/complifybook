@@ -26,7 +26,9 @@ public enum AbhaException implements BusinessExceptionDefintion {
   SERVICE_ALREADY_PRESENT(1009, ErrorCategory.ERROR, ExceptionTypes.BAD_REQUEST_ERROR,
           "Service already present!"),
   SERVICE_NOT_FOUND(1010, ErrorCategory.ERROR, ExceptionTypes.BAD_REQUEST_ERROR,
-          "Service not found by id : %s");
+          "Service not found by id : %s"),
+  SERVICE_DETAILS_ALREADY_PRESENT(1011, ErrorCategory.ERROR, ExceptionTypes.BAD_REQUEST_ERROR,
+          "Service details already present!");
 
   private final int businessErrorCode;
   private final ErrorCategory errorCategory;

@@ -66,7 +66,7 @@ public class CategoryController {
     public String addCategory(@Valid @ModelAttribute Category category,
                               BindingResult result, Model model){
         try{
-            RequestValidator.validateCreateCategory(result);
+            RequestValidator.validateRequest(result);
             categoryService.saveCategory(category);
             return "redirect:/api/v1/category";
         }catch (AbhaBaseRunTimeException e){

@@ -16,6 +16,7 @@ import lombok.Setter;
 public class ServiceDetailResponse {
     private int id;
     private String tabName;
+    private int tabOrder;
     private StatusTypeEnum status;
     private LocalDate createdAt;
 }

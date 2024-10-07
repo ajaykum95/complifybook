@@ -94,7 +94,7 @@ public class SubCategoryController {
     public String addSubCategory(@Valid @ModelAttribute SubCategory subCategory,
                                  BindingResult result, Model model) {
         try {
-            RequestValidator.validateCreateSubCategory(result);
+            RequestValidator.validateRequest(result);
             subCategoryService.saveSubCategory(subCategory);
             return "redirect:/api/v1/sub-category";
         } catch (AbhaBaseRunTimeException e) {

@@ -3,12 +3,14 @@ package com.abhaempire.complifybook.utils;
 import com.abhaempire.complifybook.configs.security.UserDetailsImpl;
 import com.abhaempire.complifybook.dtos.CategoryResponse;
 import com.abhaempire.complifybook.dtos.PublicServiceResponse;
+import com.abhaempire.complifybook.dtos.ServiceDetailResponse;
 import com.abhaempire.complifybook.dtos.ServiceResponse;
 import com.abhaempire.complifybook.dtos.SubCategoryResponse;
 import com.abhaempire.complifybook.enums.Role;
 import com.abhaempire.complifybook.enums.StatusTypeEnum;
 import com.abhaempire.complifybook.models.Category;
 import com.abhaempire.complifybook.models.Service;
+import com.abhaempire.complifybook.models.ServiceDetails;
 import com.abhaempire.complifybook.models.SubCategory;
 import com.abhaempire.complifybook.models.TagService;
 import com.abhaempire.complifybook.models.User;
@@ -179,5 +181,32 @@ public class ObjectMapper {
                 .service(service)
                 .tagServiceId(taggedServiceId)
                 .build();
+    }
+
+    public static List<ServiceDetailResponse> mapToServiceDetailsResponse(
+            List<ServiceDetails> serviceDetailsList) {
+        if (CollectionUtils.isEmpty(serviceDetailsList)){
+            return new ArrayList<>();
+        }
+        return serviceDetailsList.stream()
+                .map(ObjectMapper::mapToServiceDetailResponse)
+                .toList();
+    }
+
+    private static ServiceDetailResponse mapToServiceDetailResponse(ServiceDetails serviceDetails) {
+        return ServiceDetailResponse.builder()
+                .id(serviceDetails.getId())
+                .tabName(serviceDetails.getTabName())
+                .tabOrder(serviceDetails.getTabOrder())
+                .status(serviceDetails.getStatus())
+                .createdAt(Utils.convertToLocalDate(serviceDetails.getCreatedAt()))
+                .build();
+    }
+
+    public static void mapToSaveServiceDetails(ServiceDetails serviceDetails, Service service) {
+        UserDetailsImpl loggedInUser = UserDetailsUtil.getLoggedInUser();
+        serviceDetails.setCreatedBy(Utils.getUserId(loggedInUser));
+        serviceDetails.setStatus(StatusTypeEnum.ACTIVE);
+        serviceDetails.setService(service);
     }
 }

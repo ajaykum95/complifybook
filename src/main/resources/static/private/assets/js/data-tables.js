@@ -158,10 +158,10 @@ if ($('#serviceCategory').length) {
               dataType: 'json',
               success: function(response) {
                 var serviceDetailsDataSet = response.map(function(item) {
-                console.log(item);
                   return [
                       item.id,
                       item.tabName,
+                      item.tabOrder,
                       item.status,
                       item.createdAt
                   ];
@@ -171,6 +171,7 @@ if ($('#serviceCategory').length) {
                   columns: [
                     { title: "ID", visible: false },
                     { title: "Tab Name" },
+                    { title: "Order" },
                     { title: "Status" },
                     { title: "Created On" },
                     {
@@ -524,7 +525,10 @@ function deleteSubCategory(subCategoryId){
     }
 }
 function deleteService(serviceId){
-    alert(serviceId);
+    var userConfirmed = confirm("Are you sure you want to delete this service?");
+    if (userConfirmed) {
+        window.location.href = "/api/v1/service/delete/" + serviceId;
+    }
 }
 function deleteServiceDetails(serviceId){
     alert(serviceId);

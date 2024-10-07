@@ -7,6 +7,7 @@ import com.abhaempire.complifybook.dtos.SubCategoryResponse;
 import com.abhaempire.complifybook.enums.StatusTypeEnum;
 import com.abhaempire.complifybook.exception.AbhaBaseRunTimeException;
 import com.abhaempire.complifybook.models.Service;
+import com.abhaempire.complifybook.models.ServiceDetails;
 import com.abhaempire.complifybook.services.CategoryService;
 import com.abhaempire.complifybook.services.ServiceService;
 import com.abhaempire.complifybook.services.SubCategoryService;
@@ -57,6 +58,18 @@ public class ServiceController {
                 subCategoryService.fetchAllActiveSubCategory());
         return "private/service-new";
     }
+    @GetMapping("/delete/{serviceId}")
+    public String deleteService(@PathVariable Integer serviceId, Model model){
+        try {
+            RequestValidator.validateId(serviceId);
+            serviceService.deleteService(serviceId);
+            return "redirect:/api/v1/service";
+        }catch (AbhaBaseRunTimeException e){
+            model.addAttribute("formMessage",
+                    new Message("alert-danger", e.getMessage()));
+            return "public/404";
+        }
+    }
     @GetMapping("/edit/{serviceId}")
     public String editService(@PathVariable Integer serviceId, Model model){
         try {
@@ -81,15 +94,26 @@ public class ServiceController {
             @Valid @ModelAttribute Service service, BindingResult result,
             @RequestParam(required = false) List<Integer> tagService, Model model){
         try{
-            RequestValidator.validateSaveService(result);
+            RequestValidator.validateRequest(result);
             serviceService.saveService(service, tagService);
             return "redirect:/api/v1/service";
         }catch (AbhaBaseRunTimeException e){
-            model.addAttribute("formMessage",
-                    new Message("alert-danger", e.getMessage()));
+            setNewServiceModel(service, model, e);
             return "private/service-new";
         }
     }
+
+    private void setNewServiceModel(Service service, Model model, AbhaBaseRunTimeException exception) {
+        model.addAttribute("formMessage",
+                new Message("alert-danger", exception.getMessage()));
+        model.addAttribute("service", service);
+        model.addAttribute("categoryList",
+                categoryService.fetchAllActiveCategory());
+        model.addAttribute("service", new Service());
+        model.addAttribute("subCategoryList",
+                subCategoryService.fetchAllActiveSubCategory());
+    }
+
     @PostMapping("/update")
     public String updateService(
             @Valid @ModelAttribute Service service, BindingResult result,
@@ -127,19 +151,29 @@ public class ServiceController {
     }
     @GetMapping("/{serviceId}/details/fetchAll")
     @ResponseBody
-    public List<ServiceDetailResponse> serviceDetailsAll() {
-        System.out.println("fetching service details........");
-        return Collections.singletonList(
-                ServiceDetailResponse.builder()
-                        .id(1)
-                        .tabName("Overview")
-                        .status(StatusTypeEnum.ACTIVE)
-                        .createdAt(LocalDate.now())
-                        .build()
-        );
+    public List<ServiceDetailResponse> serviceDetailsAll(@PathVariable Integer serviceId) {
+        return serviceService.fetchAllServiceDetailsByService(serviceId);
     }
     @GetMapping("/{serviceId}/details/new")
-    public String newServiceDetails(){
+    public String newServiceDetails(@PathVariable Integer serviceId, Model model){
+        model.addAttribute("serviceDetails", new ServiceDetails());
+        model.addAttribute("serviceId", serviceId);
         return "private/service-details-new";
+    }
+
+    @PostMapping("/{serviceId}/details/new")
+    public String saveServiceDetails(
+            @Valid @ModelAttribute ServiceDetails serviceDetails, BindingResult result,
+            @PathVariable Integer serviceId, Model model) {
+        try {
+            RequestValidator.validateSaveServiceDetails(result, serviceId);
+            serviceService.saveServiceDetails(serviceDetails, serviceId);
+            return "redirect:/api/v1/service/" + serviceId + "/details";
+        } catch (AbhaBaseRunTimeException e) {
+            model.addAttribute("formMessage",
+                    new Message("alert-danger", e.getMessage()));
+            model.addAttribute("serviceDetails", serviceDetails);
+            return "private/service-details-new";
+        }
     }
 }
