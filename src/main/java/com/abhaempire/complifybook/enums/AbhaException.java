@@ -2,6 +2,7 @@ package com.abhaempire.complifybook.enums;
 
 
 import com.abhaempire.complifybook.exception.BusinessExceptionDefintion;
+import com.abhaempire.complifybook.utils.AppConstant;
 
 public enum AbhaException implements BusinessExceptionDefintion {
   AUTHORITY_NOT_FOUND(1000, ErrorCategory.ERROR, ExceptionTypes.BAD_REQUEST_ERROR,
@@ -28,7 +29,11 @@ public enum AbhaException implements BusinessExceptionDefintion {
   SERVICE_NOT_FOUND(1010, ErrorCategory.ERROR, ExceptionTypes.BAD_REQUEST_ERROR,
           "Service not found by id : %s"),
   SERVICE_DETAILS_ALREADY_PRESENT(1011, ErrorCategory.ERROR, ExceptionTypes.BAD_REQUEST_ERROR,
-          "Service details already present!");
+          "Service details already present!"),
+  INVALID_EMAIL(1012, ErrorCategory.ERROR, ExceptionTypes.VALIDATION_ERROR,
+      "Please enter a valid email!"),
+  SUBSCRIPTION_REQUEST_MISSING(1013, ErrorCategory.ERROR, ExceptionTypes.VALIDATION_ERROR,
+      "Please enter email!");
 
   private final int businessErrorCode;
   private final ErrorCategory errorCategory;

@@ -1,9 +1,11 @@
 package com.abhaempire.complifybook.utils;
 
+import com.abhaempire.complifybook.dtos.SubscriptionRequest;
 import com.abhaempire.complifybook.enums.AbhaException;
 import com.abhaempire.complifybook.models.Category;
 import com.abhaempire.complifybook.models.Service;
 import com.abhaempire.complifybook.models.SubCategory;
+import com.abhaempire.complifybook.utils.validation.EmailValidator;
 import jakarta.validation.Valid;
 import java.util.Objects;
 import org.springframework.validation.BindingResult;
@@ -56,4 +58,13 @@ public class RequestValidator {
         validateRequest(result);
         validateId(serviceId);
     }
+
+  public static void validateSubscriptionRequest(SubscriptionRequest subscriptionRequest) {
+        if (Objects.isNull(subscriptionRequest)){
+            throw buildException(AbhaException.SUBSCRIPTION_REQUEST_MISSING);
+        }
+        if (!EmailValidator.isValidEmail(subscriptionRequest.getEmail())){
+            throw buildException(AbhaException.INVALID_EMAIL);
+        }
+  }
 }

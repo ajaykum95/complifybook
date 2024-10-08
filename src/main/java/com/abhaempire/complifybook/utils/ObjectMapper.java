@@ -6,12 +6,16 @@ import com.abhaempire.complifybook.dtos.PublicServiceResponse;
 import com.abhaempire.complifybook.dtos.ServiceDetailResponse;
 import com.abhaempire.complifybook.dtos.ServiceResponse;
 import com.abhaempire.complifybook.dtos.SubCategoryResponse;
+import com.abhaempire.complifybook.dtos.SubscriptionRequest;
+import com.abhaempire.complifybook.dtos.SubscriptionResponse;
+import com.abhaempire.complifybook.enums.ResultTypeEnum;
 import com.abhaempire.complifybook.enums.Role;
 import com.abhaempire.complifybook.enums.StatusTypeEnum;
 import com.abhaempire.complifybook.models.Category;
 import com.abhaempire.complifybook.models.Service;
 import com.abhaempire.complifybook.models.ServiceDetails;
 import com.abhaempire.complifybook.models.SubCategory;
+import com.abhaempire.complifybook.models.Subscriber;
 import com.abhaempire.complifybook.models.TagService;
 import com.abhaempire.complifybook.models.User;
 import com.abhaempire.complifybook.models.UserRole;
@@ -19,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.util.CollectionUtils;
 
@@ -208,5 +213,27 @@ public class ObjectMapper {
         serviceDetails.setCreatedBy(Utils.getUserId(loggedInUser));
         serviceDetails.setStatus(StatusTypeEnum.ACTIVE);
         serviceDetails.setService(service);
+    }
+
+  public static Subscriber maptoSubscriber(SubscriptionRequest subscriptionRequest) {
+        return Subscriber.builder()
+            .email(subscriptionRequest.getEmail())
+            .url(Optional.ofNullable(subscriptionRequest.getUrl()).orElse("/"))
+            .createdBy(Utils.getUserId(UserDetailsUtil.getLoggedInUser()))
+            .status(StatusTypeEnum.ACTIVE)
+            .build();
+  }
+
+    public static SubscriptionResponse mapToPassSubscriptionResponse() {
+        return SubscriptionResponse.builder()
+            .result(ResultTypeEnum.PASS)
+            .message(AppConstant.SUBSCRIPTION_SUCCESS)
+            .build();
+    }
+    public static SubscriptionResponse mapToExistSubscriptionResponse() {
+        return SubscriptionResponse.builder()
+            .result(ResultTypeEnum.EXIST)
+            .message(AppConstant.ALREADY_SUBSCRIBED)
+            .build();
     }
 }

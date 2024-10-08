@@ -1,3 +1,4 @@
+var host = window.location.origin;
 $("#callBack").validate({
     errorClass: "error fail-alert",
     validClass: "valid success-alert",
@@ -215,3 +216,50 @@ $(document).ready(function() {
 		startTimer(60,"#timerM","#resendButtonM");
 	});
 });
+
+$("#subscription").validate({
+    errorClass: "error fail-alert",
+    validClass: "valid success-alert",
+    rules: {
+        email: {
+            required: true,
+            email: true
+        }
+    },
+    messages: {
+        email: {
+            required: "Email is required!",
+            email: "Please enter a valid email address!"
+        }
+    },
+    submitHandler: function (form, event) {
+		$.ajax({
+            url: host + '/subscriber/new',
+            type: 'POST',
+            data: buildSubscriptionSaveData(),
+            success: function(response) {
+                if (response){
+                    form.reset();
+                    if(response.result == PASS){
+                        showAlert(ALERT_SUCCESS, HEADING_SUCCESS, response.message);
+                    }else if (response.result == FAIL){
+                        showAlert(ALERT_DANGER, HEADING_ERROR, response.message);
+                    }else if(response.result == EXIST){
+                        showAlert(ALERT_INFO, HEADING_INFO, response.message);
+                    }else {
+                        showAlert(ALERT_DANGER, HEADING_ERROR, response.message);
+                    }
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('AJAX Error: ' + status + error);
+            }
+        });
+    }
+});
+function buildSubscriptionSaveData(){
+    return {
+      email: $('#email').val(),
+      url: window.location.pathname
+    };
+}

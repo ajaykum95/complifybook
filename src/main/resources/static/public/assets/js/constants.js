@@ -1,5 +1,13 @@
 var ALERT_SUCCESS = "alert-success";
+var ALERT_DANGER = "alert-danger";
+var ALERT_INFO = "alert-info";
 var HEADING_SUCCESS = "Success";
+var HEADING_ERROR = "Error";
+var HEADING_INFO = "Information";
 var ENQUIRY_SUCCESS = "Our executive will contact you soon!";
 var NO_REDIRECT = "NA";
 var ALERT_INSERT_ID = "#alertBoxDiv";
+var PASS = "PASS";
+var FAIL = "FAIL";
+var EXIST = "EXIST"
+var INVALID = "INVALID"
