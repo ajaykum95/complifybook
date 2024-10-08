@@ -12,4 +12,9 @@ public interface ServiceDetailsRepo extends JpaRepository<ServiceDetails, Intege
 
     Optional<ServiceDetails> findByServiceAndTabNameAndStatusNot(
             Service service, String tabName, StatusTypeEnum status);
+
+    Optional<ServiceDetails> findByServiceAndIdAndStatusNot(Service service, Integer detailsId, StatusTypeEnum status);
+
+    Optional<ServiceDetails> findByServiceAndTabNameAndStatusNotAndIdNot(
+            Service service, String tabName, StatusTypeEnum status, Integer detailsId);
 }

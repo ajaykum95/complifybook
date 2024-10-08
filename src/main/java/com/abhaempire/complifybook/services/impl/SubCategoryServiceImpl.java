@@ -33,8 +33,10 @@ public class SubCategoryServiceImpl implements SubCategoryService {
     @Override
     public SubCategory saveSubCategory(SubCategory subCategory) {
         subCategoryRepo.findByCategoryAndSlugAndStatusNot(
-                subCategory.getCategory(), subCategory.getSlug(), StatusTypeEnum.DELETED)
-                .ifPresent(sCategory -> {throw buildException(AbhaException.SUB_CATEGORY_ALREADY_PRESENT);});
+                        subCategory.getCategory(), subCategory.getSlug(), StatusTypeEnum.DELETED)
+                .ifPresent(sCategory -> {
+                    throw buildException(AbhaException.SUB_CATEGORY_ALREADY_PRESENT);
+                });
 
         ObjectMapper.mapToSaveSubCategory(subCategory);
         return subCategoryRepo.save(subCategory);
@@ -56,8 +58,10 @@ public class SubCategoryServiceImpl implements SubCategoryService {
     public SubCategory updateSubCategory(SubCategory subCategory) {
         fetchSubCategoryById(subCategory.getId());
         subCategoryRepo.findByCategoryAndSlugAndIdNot(
-                subCategory.getCategory(), subCategory.getSlug(), subCategory.getId())
-                .ifPresent(sCat -> {throw buildException(AbhaException.SUB_CATEGORY_ALREADY_PRESENT);});
+                        subCategory.getCategory(), subCategory.getSlug(), subCategory.getId())
+                .ifPresent(sCat -> {
+                    throw buildException(AbhaException.SUB_CATEGORY_ALREADY_PRESENT);
+                });
         UserDetailsImpl loggedInUser = UserDetailsUtil.getLoggedInUser();
         subCategory.setUpdatedBy(Utils.getUserId(loggedInUser));
         return subCategoryRepo.save(subCategory);
@@ -66,11 +70,9 @@ public class SubCategoryServiceImpl implements SubCategoryService {
     @Override
     public void deleteSubCategory(Integer subCategoryId) {
         SubCategory subCategory = fetchSubCategoryById(subCategoryId);
-        if (!StatusTypeEnum.DELETED.equals(subCategory.getStatus())){
-            subCategory.setStatus(StatusTypeEnum.DELETED);
-            subCategory.setUpdatedBy(Utils.getUserId(UserDetailsUtil.getLoggedInUser()));
-            subCategoryRepo.save(subCategory);
-        }
+        subCategory.setStatus(StatusTypeEnum.DELETED);
+        subCategory.setUpdatedBy(Utils.getUserId(UserDetailsUtil.getLoggedInUser()));
+        subCategoryRepo.save(subCategory);
     }
 
     @Override
@@ -89,7 +91,7 @@ public class SubCategoryServiceImpl implements SubCategoryService {
 
     @Override
     public SubCategory findByIdAndStatus(Integer subCategoryId, StatusTypeEnum status) {
-        return subCategoryRepo.findByIdAndStatus(subCategoryId,status)
+        return subCategoryRepo.findByIdAndStatus(subCategoryId, status)
                 .orElseThrow(() -> buildException(AbhaException.SUB_CATEGORY_NOT_FOUND));
     }
 }

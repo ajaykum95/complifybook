@@ -1,8 +1,14 @@
 package com.abhaempire.complifybook.services;
 
+import com.abhaempire.complifybook.dtos.SubscriberResponse;
 import com.abhaempire.complifybook.dtos.SubscriptionRequest;
-import com.abhaempire.complifybook.dtos.SubscriptionResponse;
+import com.abhaempire.complifybook.dtos.CommonResponse;
+import java.util.List;
 
 public interface SubscriptionService {
-  SubscriptionResponse saveSubscriber(SubscriptionRequest subscriptionRequest);
+  CommonResponse saveSubscriber(SubscriptionRequest subscriptionRequest);
+
+    List<SubscriberResponse> fetchAllSubscriber();
+
+  void deleteSubscriber(Integer subscriberId);
 }

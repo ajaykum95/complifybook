@@ -1,11 +1,14 @@
 package com.abhaempire.complifybook.utils;
 
+import com.abhaempire.complifybook.dtos.CallBackEnquiry;
 import com.abhaempire.complifybook.dtos.SubscriptionRequest;
 import com.abhaempire.complifybook.enums.AbhaException;
 import com.abhaempire.complifybook.models.Category;
 import com.abhaempire.complifybook.models.Service;
+import com.abhaempire.complifybook.models.ServiceDetails;
 import com.abhaempire.complifybook.models.SubCategory;
 import com.abhaempire.complifybook.utils.validation.EmailValidator;
+import com.abhaempire.complifybook.utils.validation.MobileValidator;
 import jakarta.validation.Valid;
 import java.util.Objects;
 import org.springframework.validation.BindingResult;
@@ -67,4 +70,36 @@ public class RequestValidator {
             throw buildException(AbhaException.INVALID_EMAIL);
         }
   }
+
+    public static void validateIds(Integer ...ids) {
+        for (Integer id : ids){
+            validateId(id);
+        }
+    }
+
+    public static void validateUpdateServiceDetails(
+            BindingResult result, ServiceDetails serviceDetails, Integer serviceId) {
+        validateRequest(result);
+        validateId(serviceDetails.getId());
+        validateId(serviceId);
+        if (Objects.isNull(serviceDetails.getStatus())){
+            throw buildException(AbhaException.INVALID_STATUS);
+        }
+    }
+
+    public static void validateCallBackRequest(CallBackEnquiry callBackEnquiry) {
+        if (Objects.isNull(callBackEnquiry)){
+            throw buildException(AbhaException.CALL_BACK_ENQUIRY_REQUEST_MISSING);
+        }
+        if (!MobileValidator.isValidMobile(callBackEnquiry.getMobile())){
+            throw buildException(AbhaException.INVALID_MOBILE_NUMBER);
+        }
+        if (Objects.isNull(callBackEnquiry.getOtp())){
+            throw buildException(AbhaException.OTP_MISSING);
+        }
+        if (Objects.nonNull(callBackEnquiry.getEmail())
+                && !EmailValidator.isValidEmail(callBackEnquiry.getEmail())){
+            throw buildException(AbhaException.INVALID_EMAIL);
+        }
+    }
 }

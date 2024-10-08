@@ -1,13 +1,14 @@
 package com.abhaempire.complifybook.models;
 
-import com.abhaempire.complifybook.enums.StatusTypeEnum;
+import com.abhaempire.complifybook.enums.EnquiryStatus;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,14 +20,20 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 @Entity
-@Table(name = "tbl_subscriber")
-public class Subscriber extends BaseDbEntity{
-  @Email
-  @NotNull
-  private String email;
+@Table(name = "tbl_enquiry")
+public class Enquiry extends BaseDbEntity {
+    @NotNull
+    @Column(nullable = false)
+    private String name;
 
-  private String url;
+    private String email;
 
-  @Enumerated(EnumType.STRING)
-  private StatusTypeEnum status;
+    @NotNull
+    @Column(nullable = false)
+    private String mobile;
+
+    private String url;
+
+    @Enumerated(EnumType.STRING)
+    private EnquiryStatus enquiryStatus;
 }

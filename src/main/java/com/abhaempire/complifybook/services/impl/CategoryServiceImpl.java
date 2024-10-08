@@ -11,7 +11,6 @@ import com.abhaempire.complifybook.utils.ObjectMapper;
 import com.abhaempire.complifybook.utils.UserDetailsUtil;
 import com.abhaempire.complifybook.utils.Utils;
 import java.util.List;
-import java.util.Objects;
 import org.springframework.stereotype.Service;
 
 import static com.abhaempire.complifybook.utils.ExceptionUtil.buildException;
@@ -59,12 +58,10 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void deleteCategory(Integer categoryId) {
         Category category = fetchCategoryById(categoryId);
-        if(!StatusTypeEnum.DELETED.equals(category.getStatus())){
-            UserDetailsImpl loggedInUser = UserDetailsUtil.getLoggedInUser();
-            category.setStatus(StatusTypeEnum.DELETED);
-            category.setUpdatedBy(Utils.getUserId(loggedInUser));
-            categoryRepo.save(category);
-        }
+        UserDetailsImpl loggedInUser = UserDetailsUtil.getLoggedInUser();
+        category.setStatus(StatusTypeEnum.DELETED);
+        category.setUpdatedBy(Utils.getUserId(loggedInUser));
+        categoryRepo.save(category);
     }
 
     @Override

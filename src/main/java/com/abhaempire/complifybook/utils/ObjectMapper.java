@@ -1,17 +1,21 @@
 package com.abhaempire.complifybook.utils;
 
 import com.abhaempire.complifybook.configs.security.UserDetailsImpl;
+import com.abhaempire.complifybook.dtos.CallBackEnquiry;
 import com.abhaempire.complifybook.dtos.CategoryResponse;
 import com.abhaempire.complifybook.dtos.PublicServiceResponse;
 import com.abhaempire.complifybook.dtos.ServiceDetailResponse;
 import com.abhaempire.complifybook.dtos.ServiceResponse;
 import com.abhaempire.complifybook.dtos.SubCategoryResponse;
+import com.abhaempire.complifybook.dtos.SubscriberResponse;
 import com.abhaempire.complifybook.dtos.SubscriptionRequest;
-import com.abhaempire.complifybook.dtos.SubscriptionResponse;
+import com.abhaempire.complifybook.dtos.CommonResponse;
+import com.abhaempire.complifybook.enums.EnquiryStatus;
 import com.abhaempire.complifybook.enums.ResultTypeEnum;
 import com.abhaempire.complifybook.enums.Role;
 import com.abhaempire.complifybook.enums.StatusTypeEnum;
 import com.abhaempire.complifybook.models.Category;
+import com.abhaempire.complifybook.models.Enquiry;
 import com.abhaempire.complifybook.models.Service;
 import com.abhaempire.complifybook.models.ServiceDetails;
 import com.abhaempire.complifybook.models.SubCategory;
@@ -22,7 +26,6 @@ import com.abhaempire.complifybook.models.UserRole;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.util.CollectionUtils;
@@ -219,21 +222,60 @@ public class ObjectMapper {
         return Subscriber.builder()
             .email(subscriptionRequest.getEmail())
             .url(Optional.ofNullable(subscriptionRequest.getUrl()).orElse("/"))
-            .createdBy(Utils.getUserId(UserDetailsUtil.getLoggedInUser()))
             .status(StatusTypeEnum.ACTIVE)
             .build();
   }
 
-    public static SubscriptionResponse mapToPassSubscriptionResponse() {
-        return SubscriptionResponse.builder()
+    public static CommonResponse mapToPassSubscriptionResponse() {
+        return CommonResponse.builder()
             .result(ResultTypeEnum.PASS)
             .message(AppConstant.SUBSCRIPTION_SUCCESS)
             .build();
     }
-    public static SubscriptionResponse mapToExistSubscriptionResponse() {
-        return SubscriptionResponse.builder()
+    public static CommonResponse mapToExistSubscriptionResponse() {
+        return CommonResponse.builder()
             .result(ResultTypeEnum.EXIST)
             .message(AppConstant.ALREADY_SUBSCRIBED)
             .build();
+    }
+
+    public static List<SubscriberResponse> mapToSubscriberResponse(List<Subscriber> subscriberList) {
+        if (CollectionUtils.isEmpty(subscriberList)){
+            return new ArrayList<>();
+        }
+        return subscriberList.stream()
+                .map(ObjectMapper::mapToSubscriberResponse)
+                .toList();
+    }
+    private static SubscriberResponse mapToSubscriberResponse(Subscriber subscriber){
+        return SubscriberResponse.builder()
+                .email(subscriber.getEmail())
+                .subscribedOn(Utils.convertToLocalDate(subscriber.getCreatedAt()))
+                .urlPath(subscriber.getUrl())
+                .status(subscriber.getStatus())
+                .id(subscriber.getId())
+                .build();
+    }
+
+    public static void mapToUpdateServiceDetails(ServiceDetails serviceDetails, Service service) {
+        serviceDetails.setService(service);
+        serviceDetails.setUpdatedBy(Utils.getUserId(UserDetailsUtil.getLoggedInUser()));
+    }
+
+    public static Enquiry mapToSaveEnquiry(CallBackEnquiry callBackEnquiry) {
+        return Enquiry.builder()
+                .name(callBackEnquiry.getName())
+                .email(callBackEnquiry.getEmail())
+                .mobile(callBackEnquiry.getMobile())
+                .enquiryStatus(EnquiryStatus.NEW)
+                .url(callBackEnquiry.getUrl())
+                .build();
+    }
+
+    public static CommonResponse mapToCallBackEnquiryResponse() {
+        return CommonResponse.builder()
+                .result(ResultTypeEnum.PASS)
+                .message(AppConstant.ENQUIRY_SUCCESS)
+                .build();
     }
 }

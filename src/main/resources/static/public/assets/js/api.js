@@ -59,16 +59,39 @@ $("#callBack").validate({
             error.appendTo("#otpErrorContainer");
         }
     },
-    submitHandler: function (form, event) {	
-		form.reset();
-		$('#callBack #mobile').prop('disabled', false);
-		$('#callBack #sendOtp').show();
-		$('#submitCallBack').addClass('d-none');
-		$("#callBack .otp").removeClass("d-block");
-        // form.submit();  // Uncomment this to actually submit the form
-		showAlert(ALERT_SUCCESS, HEADING_SUCCESS, ENQUIRY_SUCCESS);
+    submitHandler: function (form, event) {
+        event.preventDefault();
+        saveCallBackData(form);
     }
 });
+function saveCallBackData(form){
+    $.ajax({
+        url: host + '/enquiry/callBack/save',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(buildCallBackSaveData()),
+        success: function(response) {
+            showRequestResponse(response, form);
+            $('#callBack #mobile').prop('disabled', false);
+            $('#callBack #sendOtp').show();
+            $('#submitCallBack').addClass('d-none');
+            $("#callBack .otp").removeClass("d-block");
+        },
+        error: function(xhr, status, error) {
+            console.error('AJAX Error:', status, error);
+        }
+    });
+}
+function buildCallBackSaveData(){
+    return {
+        name : $('#name').val(),
+        email : $('#email').val(),
+        mobile : $('#mobile').val(),
+        otp : $('#otp').val(),
+        url : window.location.pathname
+    };
+}
+
 $("#callBackM").validate({
     errorClass: "error fail-alert",
     validClass: "valid success-alert",
@@ -129,17 +152,39 @@ $("#callBackM").validate({
             error.appendTo("#otpErrorContainerM");
         }
     },
-    submitHandler: function (form) {
-		form.reset();
-		$('#callBackM #mobileM').prop('disabled', false);
-		$('#callBackM #sendOtpM').show();
-		$('#submitCallBackM').addClass('d-none');
-		$("#callBackM .otp").removeClass("d-block");
-		$(".card .call-button.toggle-box").click();
-        // form.submit();  // Uncomment this to actually submit the form
-		showAlert(ALERT_SUCCESS, HEADING_SUCCESS, ENQUIRY_SUCCESS);
+    submitHandler: function (form, event) {
+        event.preventDefault();
+        saveCallBackModalData(form);
     }
 });
+function saveCallBackModalData(form){
+    $.ajax({
+        url: host + '/enquiry/callBack/save',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(buildCallBackSaveDataModal()),
+        success: function(response) {
+            showRequestResponse(response, form);
+            $('#callBackM #mobileM').prop('disabled', false);
+            $('#callBackM #sendOtpM').show();
+            $('#submitCallBackM').addClass('d-none');
+            $("#callBackM .otp").removeClass("d-block");
+            $(".card .call-button.toggle-box").click();
+        },
+        error: function(xhr, status, error) {
+            console.error('AJAX Error:', status, error);
+        }
+    });
+}
+function buildCallBackSaveDataModal(){
+    return {
+        name : $('#nameM').val(),
+        email : $('#emailM').val(),
+        mobile : $('#mobileM').val(),
+        otp : $('#otpM').val(),
+        url : window.location.pathname
+    };
+}
 var timer;
 $(document).ready(function() {
 	$('#mobile,#name,#mobileM,#nameM').on('keydown', function(event) {
@@ -232,34 +277,46 @@ $("#subscription").validate({
             email: "Please enter a valid email address!"
         }
     },
-    submitHandler: function (form, event) {
-		$.ajax({
+    errorPlacement: function(error, element) {
+        error.appendTo("#subscriberErrorContainer");
+    },
+    submitHandler: function (form) {
+        $.ajax({
             url: host + '/subscriber/new',
             type: 'POST',
-            data: buildSubscriptionSaveData(),
+            contentType: 'application/json',  // Set content type to JSON
+            data: JSON.stringify(buildSubscriptionSaveData()), // Convert data to JSON format
             success: function(response) {
-                if (response){
-                    form.reset();
-                    if(response.result == PASS){
-                        showAlert(ALERT_SUCCESS, HEADING_SUCCESS, response.message);
-                    }else if (response.result == FAIL){
-                        showAlert(ALERT_DANGER, HEADING_ERROR, response.message);
-                    }else if(response.result == EXIST){
-                        showAlert(ALERT_INFO, HEADING_INFO, response.message);
-                    }else {
-                        showAlert(ALERT_DANGER, HEADING_ERROR, response.message);
-                    }
-                }
+                showRequestResponse(response, form);
             },
             error: function(xhr, status, error) {
-                console.error('AJAX Error: ' + status + error);
+                console.error('AJAX Error:', status, error); // Improved logging for better readability
             }
         });
     }
 });
+function showRequestResponse(response, form){
+    if (response) {
+        switch(response.result) {
+            case PASS:
+                showAlert(ALERT_SUCCESS, HEADING_SUCCESS, response.message);
+                $(form).trigger('reset');
+                break;
+            case FAIL:
+                showAlert(ALERT_DANGER, HEADING_ERROR, response.message);
+                break;
+            case EXIST:
+                showAlert(ALERT_INFO, HEADING_INFO, response.message);
+                break;
+            default:
+                showAlert(ALERT_DANGER, HEADING_ERROR, response.message);
+        }
+    }
+}
 function buildSubscriptionSaveData(){
     return {
-      email: $('#email').val(),
+      email: $('#subscriberEmail').val(),  // Ensure the email input has the correct ID
       url: window.location.pathname
     };
 }
+

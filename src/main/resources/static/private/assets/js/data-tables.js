@@ -181,8 +181,8 @@ if ($('#serviceCategory').length) {
                       render: function(data, type, row) {
                         return `
                           <div class="action">
-                            <a href="/api/v1/service/details/edit/${row[0]}">Edit</a>
-                            <a href="javascript:void(0);" onclick="deleteServiceDetails(${row[0]})">Delete</a>
+                            <a href="/api/v1/service/${serviceId}/details/edit/${row[0]}">Edit</a>
+                            <a href="javascript:void(0);" onclick="deleteServiceDetails(${serviceId}, ${row[0]})">Delete</a>
                           </div>
                         `;
                       }
@@ -385,8 +385,7 @@ if ($('#contactUsEnquiry').length) {
                       render: function(data, type, row) {
                         return `
                           <div class="action">
-                            <a href="/api/v1/subscriber/edit/${row[0]}">Edit</a>
-                            <a href="javascript:void(0);" onclick="deleteSubCategory(${row[0]})">Delete</a>
+                            <a href="javascript:void(0);" onclick="deleteSubscriber(${row[0]})">Delete</a>
                           </div>
                         `;
                       }
@@ -530,8 +529,17 @@ function deleteService(serviceId){
         window.location.href = "/api/v1/service/delete/" + serviceId;
     }
 }
-function deleteServiceDetails(serviceId){
-    alert(serviceId);
+function deleteSubscriber(subscriberId){
+    var userConfirmed = confirm("Are you sure you want to delete this subscriber?");
+    if (userConfirmed) {
+        window.location.href = "/api/v1/subscriber/delete/" + subscriberId;
+    }
+}
+function deleteServiceDetails(serviceId, detailsId){
+    var userConfirmed = confirm("Are you sure you want to delete this service details?");
+    if (userConfirmed) {
+        window.location.href = "/api/v1/service/"+ serviceId +"/details/delete/" + detailsId;
+    }
 }
 function slugging(content, targetId){
 	$("#"+targetId).val(content. toLowerCase(). replace(/ /g,'-'). replace(/[^\w-]+/g,''));

@@ -33,7 +33,19 @@ public enum AbhaException implements BusinessExceptionDefintion {
   INVALID_EMAIL(1012, ErrorCategory.ERROR, ExceptionTypes.VALIDATION_ERROR,
       "Please enter a valid email!"),
   SUBSCRIPTION_REQUEST_MISSING(1013, ErrorCategory.ERROR, ExceptionTypes.VALIDATION_ERROR,
-      "Please enter email!");
+      "Please enter email!"),
+  SUBSCRIBER_NOT_FOUND(1014, ErrorCategory.ERROR, ExceptionTypes.BAD_REQUEST_ERROR,
+          "Subscriber not found!"),
+  SERVICE_DETAILS_NOT_FOUND(1015, ErrorCategory.ERROR, ExceptionTypes.BAD_REQUEST_ERROR,
+          "Service details not found!"),
+  SERVICE_DETAILS_TAB_NAME_PRESENT(1016, ErrorCategory.ERROR, ExceptionTypes.BAD_REQUEST_ERROR,
+          "Service details tab name already present!"),
+  OTP_MISSING(1016, ErrorCategory.ERROR, ExceptionTypes.VALIDATION_ERROR,
+          "Please enter 4 digit OTP!"),
+  INVALID_MOBILE_NUMBER(1017, ErrorCategory.ERROR, ExceptionTypes.VALIDATION_ERROR,
+          "Invalid mobile number !"),
+  CALL_BACK_ENQUIRY_REQUEST_MISSING(1018, ErrorCategory.ERROR, ExceptionTypes.VALIDATION_ERROR,
+          "Call back request is missing!");
 
   private final int businessErrorCode;
   private final ErrorCategory errorCategory;

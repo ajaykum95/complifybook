@@ -1,7 +1,7 @@
 package com.abhaempire.complifybook.controllers;
 
 import com.abhaempire.complifybook.dtos.SubscriptionRequest;
-import com.abhaempire.complifybook.dtos.SubscriptionResponse;
+import com.abhaempire.complifybook.dtos.CommonResponse;
 import com.abhaempire.complifybook.enums.ResultTypeEnum;
 import com.abhaempire.complifybook.exception.AbhaBaseRunTimeException;
 import com.abhaempire.complifybook.services.SubscriptionService;
@@ -22,12 +22,12 @@ public class PublicSubscriberController {
   }
 
   @PostMapping("/new")
-  public SubscriptionResponse subscribe(@RequestBody SubscriptionRequest subscriptionRequest){
+  public CommonResponse subscribe(@RequestBody SubscriptionRequest subscriptionRequest){
     try {
       RequestValidator.validateSubscriptionRequest(subscriptionRequest);
       return subscriptionService.saveSubscriber(subscriptionRequest);
     }catch (AbhaBaseRunTimeException e){
-      return SubscriptionResponse.builder()
+      return CommonResponse.builder()
           .result(ResultTypeEnum.FAIL)
           .message(e.getMessage())
           .build();

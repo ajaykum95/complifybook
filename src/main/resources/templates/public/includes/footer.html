@@ -28,11 +28,10 @@
                     <p>Subscribe to our newsletter and receive the latest news about our products and services!</p>
                     <form action="javascript:void(0);" method="post" id="subscription" class="php-email-form">
                         <div class="newsletter-form">
-                            <input type="email" name="email">
-                            <input type="submit" value="Subscribe"></div>
-                        <div class="loading">Loading</div>
-                        <div class="error-message"></div>
-                        <div class="sent-message">Your subscription request has been sent. Thank you!</div>
+                            <input type="email" id="subscriberEmail" name="subscriberEmail" required>
+                            <input type="submit" value="Subscribe">
+                        </div>
+                        <div id="subscriberErrorContainer"></div>
                     </form>
                 </div>
             </div>
@@ -135,7 +134,7 @@
         <div class="card form">
             <a href="javascript:void(0)" class="call-button toggle-box"><i class="bi bi-x"></i></a>
             <h3 class="text-underline">Schedule a call back</h3>
-            <form id="callBackM">
+            <form id="callBackM" action="javascript:void(0)">
                 <div class="form-group pb-20">
                     <input type="text" class="form-control" name="nameM" id="nameM" placeholder="Name" required>
                     <div id="nameErrorContainerM"></div>

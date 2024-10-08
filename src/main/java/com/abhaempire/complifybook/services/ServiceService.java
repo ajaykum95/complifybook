@@ -27,4 +27,10 @@ public interface ServiceService {
     List<ServiceDetailResponse> fetchAllServiceDetailsByService(Integer serviceId);
 
     ServiceDetails saveServiceDetails(ServiceDetails serviceDetails, Integer serviceId);
+
+    ServiceDetails fetchServiceDetailsById(Integer serviceId, Integer detailsId);
+
+    ServiceDetails updateServiceDetails(ServiceDetails serviceDetails, Integer serviceId);
+
+    void deleteServiceDetails(Integer serviceId, Integer detailsId);
 }

@@ -58,6 +58,7 @@ public class ServiceController {
                 subCategoryService.fetchAllActiveSubCategory());
         return "private/service-new";
     }
+
     @GetMapping("/delete/{serviceId}")
     public String deleteService(@PathVariable Integer serviceId, Model model){
         try {
@@ -161,6 +162,21 @@ public class ServiceController {
         return "private/service-details-new";
     }
 
+    @GetMapping("/{serviceId}/details/edit/{detailsId}")
+    public String editServiceDetails(
+            @PathVariable Integer serviceId, @PathVariable Integer detailsId, Model model){
+        try {
+            RequestValidator.validateIds(serviceId, detailsId);
+            model.addAttribute("serviceDetails",
+                    serviceService.fetchServiceDetailsById(serviceId, detailsId));
+            return "private/service-details-edit";
+        }catch (AbhaBaseRunTimeException e){
+            model.addAttribute("formMessage",
+                    new Message("alert-danger", e.getMessage()));
+            return "public/404";
+        }
+    }
+
     @PostMapping("/{serviceId}/details/new")
     public String saveServiceDetails(
             @Valid @ModelAttribute ServiceDetails serviceDetails, BindingResult result,
@@ -174,6 +190,35 @@ public class ServiceController {
                     new Message("alert-danger", e.getMessage()));
             model.addAttribute("serviceDetails", serviceDetails);
             return "private/service-details-new";
+        }
+    }
+
+    @PostMapping("/{serviceId}/details/update")
+    public String updateServiceDetails(
+            @Valid @ModelAttribute ServiceDetails serviceDetails, BindingResult result,
+            @PathVariable Integer serviceId, Model model) {
+        try {
+            RequestValidator.validateUpdateServiceDetails(result, serviceDetails, serviceId);
+            serviceService.updateServiceDetails(serviceDetails, serviceId);
+            return "redirect:/api/v1/service/" + serviceId + "/details";
+        } catch (AbhaBaseRunTimeException e) {
+            model.addAttribute("formMessage",
+                    new Message("alert-danger", e.getMessage()));
+            model.addAttribute("serviceDetails", serviceDetails);
+            return "private/service-details-edit";
+        }
+    }
+    @GetMapping("/{serviceId}/details/delete/{detailsId}")
+    public String deleteServiceDetails(
+            @PathVariable Integer serviceId, @PathVariable Integer detailsId, Model model){
+        try {
+            RequestValidator.validateIds(serviceId, detailsId);
+            serviceService.deleteServiceDetails(serviceId, detailsId);
+            return "redirect:/api/v1/service/"+ serviceId +"/details";
+        }catch (AbhaBaseRunTimeException e){
+            model.addAttribute("formMessage",
+                    new Message("alert-danger", e.getMessage()));
+            return "public/404";
         }
     }
 }

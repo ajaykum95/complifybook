@@ -17,6 +17,7 @@ import com.abhaempire.complifybook.utils.ObjectMapper;
 import com.abhaempire.complifybook.utils.UserDetailsUtil;
 import com.abhaempire.complifybook.utils.Utils;
 import java.util.List;
+import org.aspectj.apache.bcel.generic.RET;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -102,11 +103,9 @@ public class ServiceServiceImpl implements ServiceService {
     @Override
     public void deleteService(Integer serviceId) {
         com.abhaempire.complifybook.models.Service service = fetchServiceById(serviceId);
-        if (!StatusTypeEnum.DELETED.equals(service.getStatus())){
-            service.setStatus(StatusTypeEnum.DELETED);
-            service.setUpdatedBy(Utils.getUserId(UserDetailsUtil.getLoggedInUser()));
-            serviceRepo.save(service);
-        }
+        service.setStatus(StatusTypeEnum.DELETED);
+        service.setUpdatedBy(Utils.getUserId(UserDetailsUtil.getLoggedInUser()));
+        serviceRepo.save(service);
     }
 
     @Override
@@ -127,5 +126,38 @@ public class ServiceServiceImpl implements ServiceService {
                 });
         ObjectMapper.mapToSaveServiceDetails(serviceDetails, service);
         return serviceDetailsRepo.save(serviceDetails);
+    }
+
+    @Override
+    public ServiceDetails fetchServiceDetailsById(Integer serviceId, Integer detailsId) {
+        com.abhaempire.complifybook.models.Service service = fetchServiceById(serviceId);
+        return fetchServiceDetailsByServiceAndId(service, detailsId);
+    }
+
+    @Override
+    public ServiceDetails updateServiceDetails(ServiceDetails serviceDetails, Integer serviceId) {
+        com.abhaempire.complifybook.models.Service service = fetchServiceById(serviceId);
+        serviceDetailsRepo.findByServiceAndTabNameAndStatusNotAndIdNot(
+                        service, serviceDetails.getTabName(), StatusTypeEnum.DELETED, serviceDetails.getId())
+                .ifPresent(sd -> {
+                    throw buildException(AbhaException.SERVICE_DETAILS_TAB_NAME_PRESENT);
+                });
+        ObjectMapper.mapToUpdateServiceDetails(serviceDetails, service);
+        return serviceDetailsRepo.save(serviceDetails);
+    }
+
+    @Override
+    public void deleteServiceDetails(Integer serviceId, Integer detailsId) {
+        com.abhaempire.complifybook.models.Service service = fetchServiceById(serviceId);
+        ServiceDetails serviceDetails = fetchServiceDetailsByServiceAndId(service, detailsId);
+        serviceDetails.setUpdatedBy(Utils.getUserId(UserDetailsUtil.getLoggedInUser()));
+        serviceDetails.setStatus(StatusTypeEnum.DELETED);
+        serviceDetailsRepo.save(serviceDetails);
+    }
+
+    private ServiceDetails fetchServiceDetailsByServiceAndId(
+            com.abhaempire.complifybook.models.Service service, Integer detailsId) {
+        return serviceDetailsRepo.findByServiceAndIdAndStatusNot(service, detailsId, StatusTypeEnum.DELETED)
+                .orElseThrow(() -> buildException(AbhaException.SERVICE_DETAILS_NOT_FOUND));
     }
 }
