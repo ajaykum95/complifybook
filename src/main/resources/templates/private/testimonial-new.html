@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{private/main::layout(~{::bodyContent})}">
+<body>
+<!-- Body Content Wrapper -->
+<div class="ms-content-wrapper" th:fragment="bodyContent">
+    <div class="ms-panel">
+        <div class="ms-panel-header">
+            <h6>Add Testimonial</h6>
+        </div>
+        <div class="ms-panel-body">
+            <form class="needs-validation" novalidate>
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <label for="reviewerName">Reviewer Name</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="reviewerName"
+                                   placeholder="Reviewer Name" required>
+                            <div class="invalid-feedback">
+                                Please provide a valid name.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="validationCustom03">Position</label>
+                        <div class="input-group">
+                            <select class="form-control" id="validationCustom03">
+                                <option value="">Select Position</option>
+                                <option value="1">Position - 1</option>
+                                <option value="2">Position - 2</option>
+                                <option value="3">Position - 3</option>
+                                <option value="4">Position - 4</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Please select a service position.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <label for="imageName">Image</label>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="imageName">
+                            <label class="custom-file-label" for="imageName">Choose file...</label>
+                            <div class="invalid-feedback">Please select a valid image!</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="reviewerRating">Rating</label>
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="reviewerRating"
+                                   placeholder="Reviewer Rating" required>
+                            <div class="invalid-feedback">
+                                Please provide a valid rating.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-12 mb-3">
+                        <label for="validationCustom04">Description</label>
+                        <div class="input-group">
+                            <textarea rows="6" class="form-control" id="validationCustom04" placeholder="Description"
+                                      required></textarea>
+                            <div class="invalid-feedback">
+                                Please provide description.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <button class="btn btn-danger btn-block" type="button">Cancel</button>
+                    </div>
+                    <div class="col-md-6">
+                        <button class="btn btn-primary btn-block" type="submit">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

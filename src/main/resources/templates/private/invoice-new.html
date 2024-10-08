@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{private/main::layout(~{::bodyContent})}">
+<body>
+<!-- Body Content Wrapper -->
+<div class="ms-content-wrapper" th:fragment="bodyContent">
+    <div class="ms-panel">
+        <div class="ms-panel-header">
+            <h6>New Invoice</h6>
+        </div>
+        <div class="ms-panel-body">
+            <form class="needs-validation" novalidate>
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <label for="invoiceType">Invoice Type</label>
+                        <div class="input-group">
+                            <select class="form-control" id="invoiceType">
+                                <option value="">Select Type</option>
+                                <option value="1">Estimate</option>
+                                <option value="2">Final Invoice</option>
+                                <option value="3">Delivery Order</option>
+                                <option value="4">Purchase Order</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Please select a invoice type.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="customerName">Customer Name</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="customerName" placeholder="Customer Name"
+                                   required>
+                            <div class="invalid-feedback">
+                                Please provide a valid name.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <label for="invoiceDate">Invoice Date</label>
+                        <div class="input-group">
+                            <input type="date" class="form-control" id="invoiceDate" placeholder="Invoice Date"
+                                   required>
+                            <div class="invalid-feedback">
+                                Please provide a valid date.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="paymentStatus">Payment Status</label>
+                        <div class="input-group">
+                            <select class="form-control" id="paymentStatus">
+                                <option value="">Select Status</option>
+                                <option value="1">Paid</option>
+                                <option value="2">Due</option>
+                                <option value="3">Partial</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Please select a payment status.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <label for="gstNo">GST No</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="gstNo" placeholder="GST No."
+                                   required>
+                            <div class="invalid-feedback">
+                                Please provide a valid gst.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="panNo">PAN No</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="panNo" placeholder="PAN No."
+                                   required>
+                            <div class="invalid-feedback">
+                                Please provide a valid pan.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <label for="billCountry">Billing Country</label>
+                        <div class="input-group">
+                            <select class="form-control" id="billCountry">
+                                <option value="">Select Country</option>
+                                <option value="1">Country - 1</option>
+                                <option value="2">Country - 2</option>
+                                <option value="3">Country - 3</option>
+                                <option value="4">Country - 4</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Please select a state.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="billState">Billing State</label>
+                        <div class="input-group">
+                            <select class="form-control" id="billState">
+                                <option value="">Select State</option>
+                                <option value="1">State - 1</option>
+                                <option value="2">State - 2</option>
+                                <option value="3">State - 3</option>
+                                <option value="4">State - 4</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Please select a state.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-12 mb-3">
+                        <label for="validationCustom04">Billing Address</label>
+                        <div class="input-group">
+                            <textarea rows="4" class="form-control" id="validationCustom04" placeholder="Billing address"
+                                      required></textarea>
+                            <div class="invalid-feedback">
+                                Please provide address.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <label for="invoiceAmount">Invoice Amount</label>
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="invoiceAmount" placeholder="Invoice amount"
+                                   required readonly>
+                            <div class="invalid-feedback">
+                                Please provide a valid invoice amount.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="paidAmount">Paid Amount</label>
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="paidAmount" placeholder="Paid amount"
+                                   required>
+                            <div class="invalid-feedback">
+                                Please provide a valid amount.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <label for="dueAmount">Due Amount</label>
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="dueAmount" placeholder="Due amount"
+                                   required readonly>
+                            <div class="invalid-feedback">
+                                Please provide a valid amount.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="taxAmount">Tax Amount</label>
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="taxAmount" placeholder="Tax amount"
+                                   required readonly>
+                            <div class="invalid-feedback">
+                                Please provide a valid amount.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="service-tag">
+                    <h2>Invoice items</h2>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <label for="item1Name">Item-1 Name</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="item1Name" placeholder="Item-1 Name"
+                                   required>
+                            <div class="invalid-feedback">
+                                Please provide a valid name.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <label for="item1Qty">Item-1 Qty.</label>
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="item1Qty" placeholder="Item-1 qty."
+                                   required>
+                            <div class="invalid-feedback">
+                                Please provide a valid qty.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <label for="item1Rate">Item-1 Rate</label>
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="item1Rate" placeholder="Item-1 rate."
+                                   required>
+                            <div class="invalid-feedback">
+                                Please provide a valid amount.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <label for="item1Hsn">Item-1 HSN</label>
+                        <div class="input-group">
+                            <select class="form-control" id="item1Hsn">
+                                <option value="">Select HSN</option>
+                                <option value="1">89878SD878</option>
+                                <option value="2">87879HVHVH</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Please select a hsn.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <label for="item2Name">Item-2 Name</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="item2Name" placeholder="Item-2 Name"
+                                   required>
+                            <div class="invalid-feedback">
+                                Please provide a valid name.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <label for="item2Qty">Item-2 Qty.</label>
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="item2Qty" placeholder="Item-2 qty."
+                                   required>
+                            <div class="invalid-feedback">
+                                Please provide a valid qty.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <label for="item2Rate">Item-2 Rate</label>
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="item2Rate" placeholder="Item-2 rate."
+                                   required>
+                            <div class="invalid-feedback">
+                                Please provide a valid amount.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <label for="item2Hsn">Item-2 HSN</label>
+                        <div class="input-group">
+                            <select class="form-control" id="item2Hsn">
+                                <option value="">Select HSN</option>
+                                <option value="1">89878SD878</option>
+                                <option value="2">87879HVHVH</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Please select a hsn.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <label for="item3Name">Item-3 Name</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="item3Name" placeholder="Item-3 Name"
+                                   required>
+                            <div class="invalid-feedback">
+                                Please provide a valid name.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <label for="item3Qty">Item-3 Qty.</label>
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="item3Qty" placeholder="Item-3 qty."
+                                   required>
+                            <div class="invalid-feedback">
+                                Please provide a valid qty.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <label for="item3Rate">Item-3 Rate</label>
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="item3Rate" placeholder="Item-3rate."
+                                   required>
+                            <div class="invalid-feedback">
+                                Please provide a valid amount.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <label for="item3Hsn">Item-3 HSN</label>
+                        <div class="input-group">
+                            <select class="form-control" id="item3Hsn">
+                                <option value="">Select HSN</option>
+                                <option value="1">89878SD878</option>
+                                <option value="2">87879HVHVH</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Please select a hsn.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <label for="item4Name">Item-4 Name</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="item4Name" placeholder="Item-4 Name"
+                                   required>
+                            <div class="invalid-feedback">
+                                Please provide a valid name.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <label for="item4Qty">Item-4 Qty.</label>
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="item4Qty" placeholder="Item-4 qty."
+                                   required>
+                            <div class="invalid-feedback">
+                                Please provide a valid qty.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <label for="item4Rate">Item-4 Rate</label>
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="item4Rate" placeholder="Item-4 rate."
+                                   required>
+                            <div class="invalid-feedback">
+                                Please provide a valid amount.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <label for="item4Hsn">Item-4 HSN</label>
+                        <div class="input-group">
+                            <select class="form-control" id="item4Hsn">
+                                <option value="">Select HSN</option>
+                                <option value="1">89878SD878</option>
+                                <option value="2">87879HVHVH</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Please select a hsn.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <button class="btn btn-danger btn-block" type="button">Cancel</button>
+                    </div>
+                    <div class="col-md-6">
+                        <button class="btn btn-primary btn-block" type="submit">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

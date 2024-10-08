@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{private/main::layout(~{::bodyContent})}">
+<body>
+<!-- Body Content Wrapper -->
+<div class="ms-content-wrapper" th:fragment="bodyContent">
+    <div class="ms-panel">
+        <div class="ms-panel-header">
+            <h6>Add Service Category</h6>
+        </div>
+        <h6 th:if="${formMessage}" th:class="${'alert '+ formMessage.alert}"
+            th:text="${formMessage.message}">Message!</h6>
+        <div class="ms-panel-body">
+            <form class="needs-validation" th:action="@{/api/v1/category/new}" method="post"
+                  th:object="${category}">
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <label for="name">Category Name</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" th:field="*{name}"
+                                   onchange="slugging(this.value,'slug')" placeholder="Category Name" required>
+                            <div class="invalid-feedback">
+                                Please provide a valid name.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="slug">Slug</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" th:field="*{slug}" placeholder="Slug Name"
+                                   required>
+                            <div class="invalid-feedback">
+                                Please provide a valid slug.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-12 mb-2">
+                        <label for="description">Description</label>
+                        <div class="input-group">
+                            <textarea rows="6" class="form-control" th:field="*{description}" placeholder="Description"
+                                      required></textarea>
+                            <div class="invalid-feedback">
+                                Please provide description.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <button class="btn btn-danger btn-block" onclick="window.history.back()" type="button">Cancel</button>
+                    </div>
+                    <div class="col-md-6">
+                        <button class="btn btn-primary btn-block" type="submit">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

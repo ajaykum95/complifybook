@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="layout(bodyContent)">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Mylo Dashboard</title>
+    <!-- Iconic Fonts -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/private/assets/css/flaticon.css}">
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/private/assets/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/public/assets/vendor/bootstrap-icons/bootstrap-icons.css}" rel="stylesheet">
+    <!-- jQuery UI -->
+    <link th:href="@{/private/assets/css/jquery-ui.min.css}" rel="stylesheet">
+    <link th:href="@{/private/assets/css/jquery.dataTables.min.css}" rel="stylesheet">
+    <link th:href="@{/private/assets/css/ckeditor5.css}" rel="stylesheet">
+    <link th:href="@{/private/assets/css/select2.min.css}" rel="stylesheet" />
+    <!-- mylo styles -->
+    <link th:href="@{/private/assets/css/style.css}" rel="stylesheet">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" th:href="@{/private/assets/img/favicon.png}">
+</head>
+<body class="ms-body ms-aside-left-open ms-dark-theme ms-has-quickbar">
+<div th:replace="~{private/includes/left-sidebar}"></div>
+<main class="body-content">
+    <div th:replace="~{private/includes/navbar}"></div>
+    <!--   Content area -->
+    <div th:replace="${bodyContent}"></div>
+    <!-- END Content area  -->
+</main>
+<div th:replace="~{private/includes/right-sidebar}"></div>
+<div th:replace="~{private/includes/modals}"></div>
+<script th:src="@{/private/assets/js/jquery-3.3.1.min.js}"></script>
+<script th:src="@{/private/assets/js/jquery.dataTables.min.js}"></script>
+<script th:src="@{/private/assets/js/popper.min.js}"></script>
+<script th:src="@{/private/assets/js/bootstrap.min.js}"></script>
+<script th:src="@{/private/assets/js/perfect-scrollbar.js}"></script>
+<script th:src="@{/private/assets/js/jquery-ui.min.js}"></script>
+<script th:src="@{/private/assets/js/jquery.validate.min.js}"></script>
+<script th:src="@{/private/assets/js/data-tables.js}"> </script>
+<script th:src="@{/private/assets/js/select2.min.js}"></script>
+<script th:src="@{/private/assets/js/framework.js}"></script>
+<script th:src="@{/private/assets/js/settings.js}"></script>
+<div th:replace="~{private/includes/ckeditor}"></div>
+</body>
+</html>

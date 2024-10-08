@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{private/main::layout(~{::bodyContent})}">
+<body>
+<!-- Body Content Wrapper -->
+<div class="ms-content-wrapper" th:fragment="bodyContent">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ms-panel">
+                <div class="ms-panel-header d-flex justify-content-between">
+                    <h2 class="pt-2">Manage Testimonials</h2>
+                    <a th:href="@{/api/v1/testimonial/new}"><button class="btn btn-primary">New Testimonial</button></a>
+                </div>
+                <div class="ms-panel-body">
+                    <div class="table-responsive">
+                        <table id="testimonialDataTable" class="table table-hover w-100"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

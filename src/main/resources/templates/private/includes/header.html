@@ -1,0 +1,25 @@
+<header class="container" th:fragment="header">
+    <nav class="navbar navbar-expand-lg navbar-light h-100">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><img th:src="@{/private/assets/img/logo-black.svg}" alt="logo"></a>
+            <button id="toggle" class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center col-5" id="navbarNavAltMarkup">
+                <div class="navbar-nav justify-content-between w-50">
+                    <a class="nav-link active f-w-400 font-20px" aria-current="page" href="#">Home</a>
+                    <a class="nav-link f-w-400 font-20px" href="#">About us</a>
+                    <a class="nav-link f-w-400 font-20px" href="#">Login</a>
+                </div>
+            </div>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup1">
+                <div class="navbar-nav justify-content-between w-100">
+                    <button class="btn down f-w-400 font-22px text-center">Download App</button>
+                    <button class="btn call f-w-400 font-22px ml-1"><i class="bi bi-telephone"></i> Call us</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<!-- Coding by CodingLab | www.codinglabweb.com-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Responsive Login and Signup Form </title>
+    <link th:href="@{/public/assets/img/favicon.png}" rel="icon">
+    <!-- CSS -->
+    <link rel="stylesheet" th:href="@{/public/assets/css/login-signup.css}">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+</head>
+
+<body>
+<section class="container forms">
+    <div class="form login">
+        <div class="form-content">
+            <header>Login</header>
+            <h6 th:if="${param.verified}" class="alert alert-success">Account verified, Login Now !</h6>
+            <h6 th:if="${param.resetSuccess}" class="alert alert-success">Password Updated, Login Now !</h6>
+            <h6 th:if="${param.registered}" class="alert alert-info">Account verification link sent, Check your email
+                !</h6>
+            <h6 th:if="${param.verifyEmail}" class="alert alert-warning">Email not verified</h6>
+            <h6 th:if="${param.deleted}" class="alert alert-danger">Account deleted, <a th:href="@{/contact-us}">Contact
+                us</a> !</h6>
+            <h6 th:if="${param.inactive}" class="alert alert-info">Account is inactive, <a th:href="@{/contact-us}">Contact
+                us</a> !</h6>
+            <h6 th:if="${param.error}" class="alert alert-danger">Either email or password is invalid !</h6>
+            <h6 th:if="${formMessage}" th:class="${'alert '+ formMessage.alert}"
+                th:text="${formMessage.message}">Either email or password is invalid !</h6>
+            <form th:action="@{/login}" method="post">
+                <div class="field input-field">
+                    <input type="email" value="ajay30935@gmail.com" name="username" placeholder="Email" class="input" required>
+                </div>
+
+                <div class="field input-field">
+                    <input type="password" value="Ajay##30935@#" name="password" placeholder="Password" class="password" required>
+                    <i class='bx bx-hide eye-icon'></i>
+                </div>
+
+                <div class="form-link">
+                    <a href="#" class="forgot-pass">Forgot password?</a>
+                </div>
+
+                <div class="field button-field">
+                    <button type="submit">Login</button>
+                </div>
+            </form>
+
+            <div class="form-link">
+                <span>Don't have an account? <a href="#" class="link signup-link">Signup</a></span>
+            </div>
+        </div>
+
+        <!--<div class="line"></div>
+
+        <div class="media-options">
+            <a href="#" class="field facebook">
+                <i class='bx bxl-facebook facebook-icon'></i>
+                <span>Login with Facebook</span>
+            </a>
+        </div>
+
+        <div class="media-options">
+            <a href="#" class="field google">
+                <img src="images/google.png" alt="" class="google-img">
+                <span>Login with Google</span>
+            </a>
+        </div>-->
+
+    </div>
+
+    <!-- Signup Form -->
+
+    <div class="form signup">
+        <div class="form-content">
+            <header>Signup</header>
+            <form th:action="@{/signup}" method="post">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6">
+                        <div class="field input-field">
+                            <input type="text" name="firstName" placeholder="First Name" class="input">
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <div class="field input-field">
+                            <input type="text" name="lastName" placeholder="Last Name" class="input">
+                        </div>
+                    </div>
+                </div>
+                <div class="field input-field">
+                    <input type="email" name="email" placeholder="Email" class="input">
+                </div>
+
+                <div class="field input-field">
+                    <input type="password" name="password" placeholder="Create password" class="password">
+                </div>
+
+                <div class="field input-field">
+                    <input type="password" name="cpassword" placeholder="Confirm password" class="password">
+                    <i class='bx bx-hide eye-icon'></i>
+                </div>
+
+                <div class="field button-field">
+                    <button type="submit">Signup</button>
+                </div>
+            </form>
+
+            <div class="form-link">
+                <span>Already have an account? <a href="#" class="link login-link">Login</a></span>
+            </div>
+        </div>
+
+        <!--<div class="line"></div>
+
+        <div class="media-options">
+            <a href="#" class="field facebook">
+                <i class='bx bxl-facebook facebook-icon'></i>
+                <span>Login with Facebook</span>
+            </a>
+        </div>
+
+        <div class="media-options">
+            <a href="#" class="field google">
+                <img src="images/google.png" alt="Google" class="google-img">
+                <span>Login with Google</span>
+            </a>
+        </div>-->
+
+    </div>
+</section>
+
+<!-- JavaScript -->
+<script th:src="@{/public/assets/js/login-signup.js}"></script>
+</body>
+
+</html>

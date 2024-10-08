@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{private/main::layout(~{::bodyContent})}">
+<body>
+<!-- Body Content Wrapper -->
+<div class="ms-content-wrapper" th:fragment="bodyContent">
+    <div class="ms-panel">
+        <div class="ms-panel-header">
+            <h6>Add Service Details</h6>
+        </div>
+        <div class="ms-panel-body">
+            <form class="needs-validation" th:action="@{|/api/v1/service/${serviceId}/details/new|}"
+            method="post" th:object="${serviceDetails}">
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <label for="tabName">Tab Name</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" th:field="*{tabName}"
+                                   placeholder="Tab Name" required>
+                            <div class="invalid-feedback">
+                                Please provide a valid name.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="tabOrder">Tab Order</label>
+                        <div class="input-group">
+                            <input type="number" min="1" class="form-control" th:field="*{tabOrder}"
+                                   placeholder="Tab Order" required>
+                            <div class="invalid-feedback">
+                                Please provide a valid order.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-12 mb-3">
+                        <label for="description">Description</label>
+                        <div class="input-group large">
+                            <textarea th:field="*{description}" class="texteditor" placeholder="Description">
+                            </textarea>
+                            <div class="invalid-feedback">
+                                Please provide service details description.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <button class="btn btn-danger btn-block" onclick="window.history.back()" type="button">Cancel</button>
+                    </div>
+                    <div class="col-md-6">
+                        <button class="btn btn-primary btn-block" type="submit">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
