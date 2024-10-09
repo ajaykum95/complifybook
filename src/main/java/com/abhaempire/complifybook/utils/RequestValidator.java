@@ -1,6 +1,7 @@
 package com.abhaempire.complifybook.utils;
 
 import com.abhaempire.complifybook.dtos.CallBackEnquiry;
+import com.abhaempire.complifybook.dtos.OtpRequest;
 import com.abhaempire.complifybook.dtos.SubscriptionRequest;
 import com.abhaempire.complifybook.enums.AbhaException;
 import com.abhaempire.complifybook.models.Category;
@@ -11,6 +12,7 @@ import com.abhaempire.complifybook.utils.validation.EmailValidator;
 import com.abhaempire.complifybook.utils.validation.MobileValidator;
 import jakarta.validation.Valid;
 import java.util.Objects;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.validation.BindingResult;
 
 import static com.abhaempire.complifybook.utils.ExceptionUtil.buildException;
@@ -97,9 +99,15 @@ public class RequestValidator {
         if (Objects.isNull(callBackEnquiry.getOtp())){
             throw buildException(AbhaException.OTP_MISSING);
         }
-        if (Objects.nonNull(callBackEnquiry.getEmail())
+        if (!StringUtils.isEmpty(callBackEnquiry.getEmail())
                 && !EmailValidator.isValidEmail(callBackEnquiry.getEmail())){
             throw buildException(AbhaException.INVALID_EMAIL);
+        }
+    }
+
+    public static void validateOtpRequest(OtpRequest otpRequest) {
+        if (!MobileValidator.isValidMobile(otpRequest.getMobile())){
+            throw buildException(AbhaException.INVALID_MOBILE_NUMBER);
         }
     }
 }

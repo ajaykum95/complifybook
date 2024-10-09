@@ -6,4 +6,6 @@ public class AppConstant {
     public static final String SUBSCRIPTION_SUCCESS = "Your subscription request has been successfully submitted. Thank you for your interest!";
     public static final String ALREADY_SUBSCRIBED = "You are already subscribed. Thank you for your continued support!";
     public static final String ENQUIRY_SUCCESS = "Our executive will contact you soon!";
+    public static final String OTP_SENT_SUCCESS = "Your OTP has been sent successfully! Please check your SMS for the code.";
+    public static final String INVALID_OTP = "The OTP you entered is invalid. Please check your SMS and try again.";
 }

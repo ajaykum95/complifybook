@@ -45,7 +45,9 @@ public enum AbhaException implements BusinessExceptionDefintion {
   INVALID_MOBILE_NUMBER(1017, ErrorCategory.ERROR, ExceptionTypes.VALIDATION_ERROR,
           "Invalid mobile number !"),
   CALL_BACK_ENQUIRY_REQUEST_MISSING(1018, ErrorCategory.ERROR, ExceptionTypes.VALIDATION_ERROR,
-          "Call back request is missing!");
+          "Call back request is missing!"),
+  SMS_SENDER_ERROR(1019, ErrorCategory.ERROR, ExceptionTypes.INTERNAL_ERROR,
+          AppConstant.INTERNAL_ERROR);
 
   private final int businessErrorCode;
   private final ErrorCategory errorCategory;

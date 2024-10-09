@@ -3,6 +3,7 @@ package com.abhaempire.complifybook.utils;
 import com.abhaempire.complifybook.configs.security.UserDetailsImpl;
 import com.abhaempire.complifybook.dtos.CallBackEnquiry;
 import com.abhaempire.complifybook.dtos.CategoryResponse;
+import com.abhaempire.complifybook.dtos.OtpRequest;
 import com.abhaempire.complifybook.dtos.PublicServiceResponse;
 import com.abhaempire.complifybook.dtos.ServiceDetailResponse;
 import com.abhaempire.complifybook.dtos.ServiceResponse;
@@ -11,11 +12,13 @@ import com.abhaempire.complifybook.dtos.SubscriberResponse;
 import com.abhaempire.complifybook.dtos.SubscriptionRequest;
 import com.abhaempire.complifybook.dtos.CommonResponse;
 import com.abhaempire.complifybook.enums.EnquiryStatus;
+import com.abhaempire.complifybook.enums.OtpStatus;
 import com.abhaempire.complifybook.enums.ResultTypeEnum;
 import com.abhaempire.complifybook.enums.Role;
 import com.abhaempire.complifybook.enums.StatusTypeEnum;
 import com.abhaempire.complifybook.models.Category;
 import com.abhaempire.complifybook.models.Enquiry;
+import com.abhaempire.complifybook.models.Otp;
 import com.abhaempire.complifybook.models.Service;
 import com.abhaempire.complifybook.models.ServiceDetails;
 import com.abhaempire.complifybook.models.SubCategory;
@@ -26,6 +29,7 @@ import com.abhaempire.complifybook.models.UserRole;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.util.CollectionUtils;
@@ -124,6 +128,7 @@ public class ObjectMapper {
                 .createdAt(Utils.convertToLocalDate(service.getCreatedAt()))
                 .build();
     }
+
     public static PublicServiceResponse mapToPublicServiceResponse(Service service) {
         return PublicServiceResponse.builder()
                 .slug(service.getSlug())
@@ -165,7 +170,7 @@ public class ObjectMapper {
             if (!CollectionUtils.isEmpty(tagServiceList)) {
                 tagServiceList.forEach(ts -> ts.setStatus(StatusTypeEnum.DELETED));
             }
-            return ;
+            return;
         }
         List<Integer> commonElements = tagServiceList.stream()
                 .map(TagService::getTagServiceId)
@@ -193,7 +198,7 @@ public class ObjectMapper {
 
     public static List<ServiceDetailResponse> mapToServiceDetailsResponse(
             List<ServiceDetails> serviceDetailsList) {
-        if (CollectionUtils.isEmpty(serviceDetailsList)){
+        if (CollectionUtils.isEmpty(serviceDetailsList)) {
             return new ArrayList<>();
         }
         return serviceDetailsList.stream()
@@ -218,36 +223,38 @@ public class ObjectMapper {
         serviceDetails.setService(service);
     }
 
-  public static Subscriber maptoSubscriber(SubscriptionRequest subscriptionRequest) {
+    public static Subscriber maptoSubscriber(SubscriptionRequest subscriptionRequest) {
         return Subscriber.builder()
-            .email(subscriptionRequest.getEmail())
-            .url(Optional.ofNullable(subscriptionRequest.getUrl()).orElse("/"))
-            .status(StatusTypeEnum.ACTIVE)
-            .build();
-  }
+                .email(subscriptionRequest.getEmail())
+                .url(Optional.ofNullable(subscriptionRequest.getUrl()).orElse("/"))
+                .status(StatusTypeEnum.ACTIVE)
+                .build();
+    }
 
     public static CommonResponse mapToPassSubscriptionResponse() {
         return CommonResponse.builder()
-            .result(ResultTypeEnum.PASS)
-            .message(AppConstant.SUBSCRIPTION_SUCCESS)
-            .build();
+                .result(ResultTypeEnum.PASS)
+                .message(AppConstant.SUBSCRIPTION_SUCCESS)
+                .build();
     }
+
     public static CommonResponse mapToExistSubscriptionResponse() {
         return CommonResponse.builder()
-            .result(ResultTypeEnum.EXIST)
-            .message(AppConstant.ALREADY_SUBSCRIBED)
-            .build();
+                .result(ResultTypeEnum.EXIST)
+                .message(AppConstant.ALREADY_SUBSCRIBED)
+                .build();
     }
 
     public static List<SubscriberResponse> mapToSubscriberResponse(List<Subscriber> subscriberList) {
-        if (CollectionUtils.isEmpty(subscriberList)){
+        if (CollectionUtils.isEmpty(subscriberList)) {
             return new ArrayList<>();
         }
         return subscriberList.stream()
                 .map(ObjectMapper::mapToSubscriberResponse)
                 .toList();
     }
-    private static SubscriberResponse mapToSubscriberResponse(Subscriber subscriber){
+
+    private static SubscriberResponse mapToSubscriberResponse(Subscriber subscriber) {
         return SubscriberResponse.builder()
                 .email(subscriber.getEmail())
                 .subscribedOn(Utils.convertToLocalDate(subscriber.getCreatedAt()))
@@ -276,6 +283,34 @@ public class ObjectMapper {
         return CommonResponse.builder()
                 .result(ResultTypeEnum.PASS)
                 .message(AppConstant.ENQUIRY_SUCCESS)
+                .build();
+    }
+
+    public static Otp mapToSaveOtp(OtpRequest otpRequest) {
+        return Otp.builder()
+                .mobile(otpRequest.getMobile())
+                .lastOtp(OtpGenerator.generateOtp())
+                .url(otpRequest.getUrl())
+                .otpStatus(OtpStatus.NEW)
+                .build();
+    }
+
+    public static void mapToSaveOtp(Otp otp, OtpRequest otpRequest) {
+        if (Objects.nonNull(otp.getId())) {
+            otp.setOldOtp(Optional.ofNullable(otp.getOldOtp())
+                    .map(oldOtp -> oldOtp.concat(",").concat(otp.getLastOtp()))
+                    .orElse(otp.getLastOtp())
+            );
+            otp.setLastOtp(OtpGenerator.generateOtp());
+            otp.setUrl(otpRequest.getUrl());
+            otp.setOtpStatus(OtpStatus.NEW);
+        }
+    }
+
+    public static CommonResponse mapToSentOtpResponse() {
+        return CommonResponse.builder()
+                .result(ResultTypeEnum.PASS)
+                .message(AppConstant.OTP_SENT_SUCCESS)
                 .build();
     }
 }

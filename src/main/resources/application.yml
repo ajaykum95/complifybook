@@ -1,3 +1,5 @@
+server:
+  port: 9712
 spring:
   application:
     name: complifybook
@@ -41,3 +43,7 @@ management:
   metrics:
     tags:
       application: complifybook
+
+providermap:
+  providerConfig:
+    activeSmsProvider: WAY2SMS

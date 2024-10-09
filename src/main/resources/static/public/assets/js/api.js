@@ -72,10 +72,12 @@ function saveCallBackData(form){
         data: JSON.stringify(buildCallBackSaveData()),
         success: function(response) {
             showRequestResponse(response, form);
-            $('#callBack #mobile').prop('disabled', false);
-            $('#callBack #sendOtp').show();
-            $('#submitCallBack').addClass('d-none');
-            $("#callBack .otp").removeClass("d-block");
+            if(response && response.result == PASS){
+                $('#callBack #mobile').prop('disabled', false);
+                $('#callBack #sendOtp').show();
+                $('#submitCallBack').addClass('d-none');
+                $("#callBack .otp").removeClass("d-block");
+            }
         },
         error: function(xhr, status, error) {
             console.error('AJAX Error:', status, error);
@@ -165,11 +167,13 @@ function saveCallBackModalData(form){
         data: JSON.stringify(buildCallBackSaveDataModal()),
         success: function(response) {
             showRequestResponse(response, form);
-            $('#callBackM #mobileM').prop('disabled', false);
-            $('#callBackM #sendOtpM').show();
-            $('#submitCallBackM').addClass('d-none');
-            $("#callBackM .otp").removeClass("d-block");
-            $(".card .call-button.toggle-box").click();
+            if(response && response.result == PASS){
+                $('#callBackM #mobileM').prop('disabled', false);
+                $('#callBackM #sendOtpM').show();
+                $('#submitCallBackM').addClass('d-none');
+                $("#callBackM .otp").removeClass("d-block");
+                $(".card .call-button.toggle-box").click();
+            }
         },
         error: function(xhr, status, error) {
             console.error('AJAX Error:', status, error);
@@ -192,76 +196,35 @@ $(document).ready(function() {
 		event.preventDefault(); // Prevent form submission
 	  }
 	});
-	$("#sendOtp").click(function() {	
-		event.preventDefault();	
-		var regex = /^[6-9]\d{9}$/;
-		var mobileNumber = $('#mobile').val();			
-		if (regex.test(mobileNumber)) {
-			$('#callBack #mobile').prop('disabled', true);
-			$('#callBack #sendOtp').hide();
-			$('#submitCallBack').removeClass('d-none');
-			//call to send otp
-			$("#callBack .otp").addClass("d-block");
-			clearInterval(timer);
-			startTimer(60,"#timer","#resendButton");		
-		}else{
-			$("#callBack").valid();
-		}
+	$("#sendOtp").click(function(event) {
+		generateNewOtp(event, "mobile", "callBack", 2);
 	});
-	$("#sendOtpM").click(function() {	
-		event.preventDefault();	
-		var regex = /^[6-9]\d{9}$/;
-		var mobileNumber = $('#mobileM').val();			
-		if (regex.test(mobileNumber)) {
-			$('#callBackM #mobileM').prop('disabled', true);
-			$('#callBackM #sendOtpM').hide();
-			$('#submitCallBackM').removeClass('d-none');
-			//call to send otp
-			$("#callBackM .otp").addClass("d-block");
-			clearInterval(timer);
-			startTimer(60,"#timerM","#resendButtonM");			
-		}else{
-			$("#callBackM").valid();
-		}
+
+	$("#sendOtpM").click(function() {
+	    generateNewOtp(event, "mobileM", "callBackM", 1);
 	});
-    
-	function startTimer(duration, timerSelector, resendSelector) {
-    var timeLeft = duration;
-    var intervalId;  // This will store the interval ID
-    
-    $(timerSelector).text(formatTime(timeLeft)); // Set initial time
-    $(resendSelector).hide(); // Hide resend button initially
-    $(timerSelector).show();  // Show timer
-
-    intervalId = setInterval(function() {
-        timeLeft--;
-        $(timerSelector).text(formatTime(timeLeft));
-
-        if (timeLeft <= 0) {
-            clearInterval(intervalId); // Stop the timer
-            $(timerSelector).hide();   // Hide timer
-            $(resendSelector).show();  // Show resend button
-            $(timerSelector).text(''); // Clear the timer text
-        }
-    }, 1000);
-}
-
-	function formatTime(secondsLeft) {
-		var minutes = Math.floor(secondsLeft / 60);
-		var seconds = secondsLeft % 60;
-		return minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
-	}
 
 	$('#resendButton').click(function() {
 		$('#otp').val('');
+		generateNewOtp(event, "mobile", "callBack");
 		startTimer(60,"#timer","#resendButton");
 	});
 	$('#resendButtonM').click(function() {
 		$('#otpM').val('');
+		generateNewOtp(event, "mobileM", "callBackM");
 		startTimer(60,"#timerM","#resendButtonM");
 	});
 });
-
+function generateNewOtp(event, mobileId, callBackId, isModal){
+    event.preventDefault();
+    var regex = /^[6-9]\d{9}$/;
+    var mobileNumber = $("#"+mobileId).val();
+    if (regex.test(mobileNumber)) {
+        generateOtp(mobileNumber, isModal)
+    }else{
+        $("#"+callBackId).valid();
+    }
+}
 $("#subscription").validate({
     errorClass: "error fail-alert",
     validClass: "valid success-alert",
@@ -295,12 +258,59 @@ $("#subscription").validate({
         });
     }
 });
+function generateOtp(mobileNumber,isModal){
+	$.ajax({
+        url: host + '/otp/generate',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(buildGenerateOtp(mobileNumber)),
+        success: function(response) {
+            showRequestResponse(response);
+            if(isModal == 2){
+                showHideOtp(response);
+            }else{
+                showHideOtpModal(response);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('AJAX Error:', status, error);
+        }
+    });
+}
+function buildGenerateOtp(mobileNumber){
+    return {
+        mobile: mobileNumber,
+        url: window.location.pathname
+    };
+}
+function showHideOtpModal(response){
+    if(response && response.result == PASS){
+        $('#callBackM #mobileM').prop('disabled', true);
+        $('#callBackM #sendOtpM').hide();
+        $('#submitCallBackM').removeClass('d-none');
+        //call to send otp
+        $("#callBackM .otp").addClass("d-block");
+        clearInterval(timer);
+        startTimer(60,"#timerM","#resendButtonM");
+    }
+}
+function showHideOtp(response){
+    if(response && response.result == PASS){
+        $('#callBack #mobile').prop('disabled', true);
+        $('#callBack #sendOtp').hide();
+        $('#submitCallBack').removeClass('d-none');
+        //call to send otp
+        $("#callBack .otp").addClass("d-block");
+        clearInterval(timer);
+        startTimer(60,"#timer","#resendButton");
+    }
+}
 function showRequestResponse(response, form){
     if (response) {
         switch(response.result) {
             case PASS:
                 showAlert(ALERT_SUCCESS, HEADING_SUCCESS, response.message);
-                $(form).trigger('reset');
+                if(form){ $(form).trigger('reset'); }
                 break;
             case FAIL:
                 showAlert(ALERT_DANGER, HEADING_ERROR, response.message);
@@ -315,8 +325,35 @@ function showRequestResponse(response, form){
 }
 function buildSubscriptionSaveData(){
     return {
-      email: $('#subscriberEmail').val(),  // Ensure the email input has the correct ID
+      email: $('#subscriberEmail').val(),
       url: window.location.pathname
     };
+}
+
+function startTimer(duration, timerSelector, resendSelector) {
+    var timeLeft = duration;
+    var intervalId;  // This will store the interval ID
+
+    $(timerSelector).text(formatTime(timeLeft)); // Set initial time
+    $(resendSelector).hide(); // Hide resend button initially
+    $(timerSelector).show();  // Show timer
+
+    intervalId = setInterval(function() {
+        timeLeft--;
+        $(timerSelector).text(formatTime(timeLeft));
+
+        if (timeLeft <= 0) {
+            clearInterval(intervalId); // Stop the timer
+            $(timerSelector).hide();   // Hide timer
+            $(resendSelector).show();  // Show resend button
+            $(timerSelector).text(''); // Clear the timer text
+        }
+    }, 1000);
+}
+
+function formatTime(secondsLeft) {
+    var minutes = Math.floor(secondsLeft / 60);
+    var seconds = secondsLeft % 60;
+    return minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
 }
 
